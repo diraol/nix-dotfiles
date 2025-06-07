@@ -2,17 +2,19 @@
 
 {
   home.packages = with pkgs; [
-    aircrack-ng
+    ### Wifi/hacking tools
+    # aircrack-ng
+    # hashcat
+    # hashcat-utils
+    # hcxtools
     aider-chat
     ollama
-    hashcat
-    # hashcat-utils
-    hcxtools
     awscli
     stable.appimage-run
     aspell
     aspellDicts.en
     aspellDicts.en-computers
+    bzip2
     cachix
     curl
     copilot-language-server-fhs
@@ -27,7 +29,6 @@
     gitFull
     gnumake
     stable.gnupg
-    google-drive-ocamlfuse
     go
     gotop
     grub2

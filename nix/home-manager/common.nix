@@ -7,45 +7,38 @@ in {
 
   imports = [
     ./programs/cli.nix
-    ./programs/vim.nix
-    ./programs/shell.nix
+    ./programs/clojure.nix
     ./programs/git.nix
+    ./programs/nubank.nix
+    ./programs/python.nix
     ./programs/network-manager.nix
+    ./programs/shell.nix
+    ./programs/zsh.nix
     ./programs/tmux.nix
-    ./programs/tmuxinator.nix
-    ./programs/emacs.nix
+    ./programs/vim.nix
   ];
 
   home = {
     stateVersion = "24.11";
     packages = with pkgs; [
-      alda
-      blender
       nodePackages.eask
       # master.graalvm-ce
       gh
       sway-contrib.grimshot
-      heroku
       imagemagick
       kitty
       kdePackages.polkit-kde-agent-1
       maven
       mariadb
       nodePackages.node2nix
-      hugo
       vesktop
       pandoc
       # stable.postman
       stable.ferdium
       s3cmd
-      sass
-      sassc
       srt-to-vtt-cl
-      stremio
-      teamviewer
       pulseaudioFull
       p7zip
-      virtualbox
       websocat
       # master.dart
       # flutter
@@ -59,24 +52,25 @@ in {
 
       ln -sf ${dotfilesDir}/.nubank_aliases ~/.nubank_aliases
       ln -sf ${dotfilesDir}/.nubank_extra ~/.extra
+      ln -sf ${dotfilesDir}/.nugitconfig ~/.nugitconfig
+
+      ln -sf ${dotfilesDir}/.gitignore ~/.gitignore
 
       ln -Tsf ${dotfilesDir}/.config/hypr ~/.config/hypr
       ln -Tsf ${dotfilesDir}/.config/waybar ~/.config/waybar
-      ln -Tsf ${dotfilesDir}/.config/kitty ~/.config/kitty
       ln -Tsf ${dotfilesDir}/.config/kanshi ~/.config/kanshi
-      ln -Tsf ${dotfilesDir}/.config/rofi ~/.config/rofi
+      ln -Tsf ${dotfilesDir}/.config/wofi ~/.config/wofi
       ln -Tsf ${dotfilesDir}/.config/dunst ~/.config/dunst
-      ln -Tsf ${dotfilesDir}/.config/nvim ~/.config/nvim
-      ln -Tsf ${dotfilesDir}/.config/clojure ~/.config/clojure
-      ln -Tsf ${dotfilesDir}/.config/gdfuse ~/.config/gdfuse
       ln -Tsf ${dotfilesDir}/.config/networkmanager-dmenu ~/.config/networkmanager-dmenu
-      mkdir -p ~/.config/clojure-lsp
-      ln -sf ${dotfilesDir}/.config/clojure-lsp/config.edn ~/.config/clojure-lsp/config.edn
 
-      ln -Tsf ${dotfilesDir}/.config/doom ~/.config/doom
-
+      ln -Tsf ${dotfilesDir}/.config/kitty ~/.config/kitty
+      ln -Tsf ${dotfilesDir}/.config/nvim ~/.config/nvim
       ln -sf ${dotfilesDir}/.config/Code/User/keybindings.json ~/.config/Code/User/keybindings.json
       ln -sf ${dotfilesDir}/.config/Code/User/settings.json ~/.config/Code/User/settings.json
+
+      ln -Tsf ${dotfilesDir}/.config/clojure ~/.config/clojure
+      mkdir -p ~/.config/clojure-lsp
+      ln -sf ${dotfilesDir}/.config/clojure-lsp/config.edn ~/.config/clojure-lsp/config.edn
     '';
   };
 }

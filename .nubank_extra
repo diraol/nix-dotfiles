@@ -8,9 +8,4 @@ export PATH="$NU_HOME/nucli.py/bin:$PATH"
 export PATH="$NU_HOME/nucli.bb/bin:$PATH"
 export PATH="$NU_HOME/nucli:$PATH"
 
-export PATH="$HOME/flutter/bin:$PATH"
-
-export ANDROID_HOME="$HOME/Android/Sdk"
-export FLUTTER_PLATFORM_CLIENT_ENV=staging
-
 # eval `ssh-agent -s` && ssh-add ~/.ssh/github

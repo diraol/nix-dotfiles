@@ -15,13 +15,13 @@
       inputs.nixpkgs.follows = "stable";
     };
     flake-utils.url = "github:numtide/flake-utils";
-
-    emacs = {
-      url = "github:nix-community/emacs-overlay/master";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    vim = {
+      url = "github:nix-community/nixvim/master";
+      inputs.nixpkgs.follows = "nixpkgs"
+    }
     nubank.url = "github:nubank/nixpkgs/master";
     vpn = {
+      # TODO: replace with ZScaler
       url = "github:yuezk/GlobalProtect-openconnect/v2.3.8";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -48,9 +48,7 @@
           };
       in
       {
-        gregnix-personal = mkSystem { modules = [ ./hosts/asus-zenbook-oled ]; };
-
-        gregnix-work = mkSystem { modules = [ ./hosts/asus-zenbook-deluxe ]; };
+        diraol-personal = mkSystem { modules = [ ./hosts/tp52s ]; };
       };
   };
 }

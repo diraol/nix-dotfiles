@@ -1,9 +1,113 @@
 #!/usr/bin/env bash
+nu_credentials_update() {
+  # Explicitly declare array types
+  typeset -a commands
+  typeset -a successful
+  typeset -a failed
 
-alias rebuild-gregnix-work="sudo nixos-rebuild switch --flake ~/.dotfiles/nix#gregnix-work"
-alias rebuild-gregnix-work-home-manager="NIXPKGS_ALLOW_UNFREE=1 home-manager switch --impure --flake ~/.dotfiles/nix"
+  tokens=(
+    "nu-br auth get-refresh-token --env prod"
+    "nu-br-staging auth get-refresh-token --env staging"
+    "nu-ist auth get-refresh-token --env prod"
+    "nu-ist auth get-refresh-token --env staging"
+    "nu-data auth get-refresh-token --env prod --force"
+    "nu-data auth get-refresh-token --env staging --force"
+    "nu-data auth get-refresh-token --env prod --force --country mx"
+    "nu-data auth get-refresh-token --env staging --force --country mx"
+  )
 
-alias nubank='tmuxinator start nubank'
+  logins=(
+    "nu codeartifact login maven"
+    "nu codeartifact login npm"
+    "nu codeartifact login python"
+    "nu-ist codeartifact login maven"
+    "nu-cicd codeartifact login maven"
+    "nu docker login"
+  )
+
+  # Array of commands to run
+  update=("nu update")
+  credentials=(
+    "nu aws shared-role-credentials refresh --account-alias=br"
+    "nu aws credentials refresh"
+  )
+
+  if [[ $1 == "" || $1 == "--all" ]]; then
+    commands=(${update[@]} ${credentials[@]} ${tokens[@]} ${logins[@]})
+  elif [[ $1 == "--credentials" ]]; then
+    commands=(${credentials[@]})
+  elif [[ $1 == "--tokens" ]]; then
+    commands=(${tokens[@]})
+  elif [[ $1 == "--logins" ]]; then
+    commands=(${logins[@]})
+  else
+    commands=()
+  fi
+
+  # Arrays to track successful and failed commands
+  successful=()
+  failed=()
+  chain_broken=false
+
+  echo "\nStarting bootstrap sequence..."
+  echo "============================"
+
+  # Loop through each command
+  for cmd in "${commands[@]}"; do
+    if [ "$chain_broken" = false ]; then
+      echo "\n▶️ Running: $cmd"
+      eval "$cmd"
+
+      # Check exit status
+      if [ $? -eq 0 ]; then
+        successful+=("$cmd")
+        echo "✅ Success"
+      else
+        failed+=("$cmd")
+        echo "❌ Failed"
+        chain_broken=true
+      fi
+    else
+      # If chain is broken, mark remaining commands as skipped
+      echo "\n⏭️ Skipping: $cmd (due to previous failure)"
+      failed+=("$cmd (skipped)")
+    fi
+  done
+
+  # Print summary
+  echo "\n======== SUMMARY ========="
+  echo "✅ Successfully executed:"
+  if [ ${#successful[@]} -eq 0 ]; then
+    echo "  None"
+  else
+    for cmd in "${successful[@]}"; do
+      echo "  • $cmd"
+    done
+  fi
+
+  if [ ${#failed[@]} -eq 0 ]; then
+    echo "\n🎉 All commands completed successfully!"
+    return 0
+  else
+    echo "\n⚠️ Some commands failed or were skipped."
+    echo "\n❌ Failed or skipped:"
+    for cmd in "${failed[@]}"; do
+      echo "  • $cmd"
+    done
+    return 1
+  fi
+}
+
+# Bom Dia
+bd() {
+    if [[ $1 == "" ]]; then
+        sudo apt clean && sudo apt update && sudo apt upgrade -y && sudo apt autoremove -y
+    fi
+    nu_credentials_update $1
+}
+
+
+# alias nubank='tmuxinator start nubank'
 alias grt="nu auth get-refresh-token --env prod && nu-br auth get-access-token --env prod --country br"
 alias grt-staging="nu auth get-refresh-token --env staging && nu auth r --env staging"
 alias vpn="$VPN_START"

@@ -9,20 +9,46 @@
       enable = true;
       styles.cursor = "fg=#ffffff";
     };
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git" "fzf"];
-      theme = "simple";
+    prezto = {
+        enable = true;
+        pmodulesDirs = [ "''${config.home.homeDirectory}/.zprezto-contrib" ];
+        plugins = [ "git" "fzf" ];
+        pmodules = [ "environment" "editor" "history" "directory" "spectrum" "utility" "completion" "syntax-highlighting" "history-substring-search" "autosuggestions" "prompt" "tmux" "gpg" "git" "docker" "dpkg" "python" "tmux-xpanes" "enhancd" "kubernetes" "direnv" "node" ];
+        # autosuggestions.color = "fg=blue";
+        editor.keymap = "vi";
+        prompt.theme = "powerlevel10k";
+        virtualenvAutoSwitch = true;
+        virualenvInitialize = true;
+        syntaxHighlighting.highlighters = [ "main" "brackets" "pattern" "line" "root" ];
+        styles = {
+          builtin = "bg=blue";
+          command = "bg=blue";
+          function = "bg=blue";
+        };
+        pattern = {
+            "rm*-rf*" = "fg=white,bold,bg=red";
+        };
+        tmux.autoStartRemote = true;
+        utility.safeOps = false;
+
+        extraConfig = {
+
+        };
+        extraModules = [ "enhancd" ];
+        extraConfig = ''
+            zstyle ":prezto:module:enhancd" command "fzf"
+            zstyle ":prezto:module:enhancd" command "cd"
+        '';
     };
+
     plugins = [
       {
-        name = "dracula/zsh-syntax-highlighting";
-        file = "zsh-syntax-highlighting.sh";
+        name = "prezto-contrib";
         src = pkgs.fetchFromGitHub {
-          owner = "dracula";
-          repo = "zsh-syntax-highlighting";
-          rev = "09c89b657ad8a27ddfe1d6f2162e99e5cce0d5b3";
-          sha256 = "sha256-JrSKx8qHGAF0DnSJiuKWvn6ItQHvWpJ5pKo4yNbrHno=";
+          owner = "belak";
+          repo = "prezto-contrib";
+          rev = "a05508a716cad6e45e90cb8b0f73c811cbd4438a";
+          fetchSubmodules = true;
         };
       }
     ];

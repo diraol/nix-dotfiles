@@ -14,6 +14,7 @@ let
       # pillow
       fonttools
       pip
+      pipx
     ];
   python-with-my-packages = pkgs.python3Full; # .withPackages custom-python-packages;
 in {

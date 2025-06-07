@@ -1,32 +1,16 @@
 #!/usr/bin/env bash
-
-# Emacs
-alias v="TERM=xterm-256color emacsclient -t -a \"\""
-
 # Nix
-alias rebuild-gregnix-personal="sudo nixos-rebuild switch --flake ~/.dotfiles/nix#gregnix-personal"
+alias rebuild-diraol-personal="sudo nixos-rebuild switch --flake ~/.dotfiles/nix#diraol-personal"
 
 # Clojure
 alias update-clojure-lsp="bash <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install) --dir ~/dev/clojure-lsp/ --version nightly --static"
 
-# Flutter
-alias flutter-fix="sudo mkdir /lib64;sudo ln -sf $(file -L /usr/bin/env | cut -d"," -f5 | cut -d" " -f3) /lib64/ld-linux-x86-64.so.2"
-alias flutter-watch="flutter pub run build_runner watch --verbose --delete-conflicting-outputs"
-
-# urxvt
-alias reload-urxvt="xrdb ~/.Xresources"
-
-# Raspiberry
-PI=192.168.1.108
-alias pi='ssh pi@$PI'
-alias torrent='transmission-remote-cli -c $PI'
-
 # Utils
-alias ls='ls -G --color=auto'
-alias ll='ls -l'
+# alias ls='ls -G --color=auto'
+# alias ll='ls -l'
 alias fpo="sudo shutdown -P 0"
 alias pl="ps aux | grep"
-alias rehash="source ~/.zshrc"
+# alias rehash="source ~/.zshrc"
 alias al='$EDITOR ~/.zsh_aliases'
 alias fu='$EDITOR ~/dev/dotfiles/alias/'
 
@@ -38,18 +22,9 @@ alias hey='s -v pt-br "se liga, cabô" && notify-send "Hey"'
 alias dotfiles="$EDITOR $DOTFILES_DIR"
 alias restart-chrome="killall chrome; google-chrome-stable"
 
-alias m="mysql -uroot -p -h 172.17.0.1"
 alias k="kill -9"
 
 alias c='xclip -selection clipboard'
-
-# Cloud at Cost
-GREGFLIX_IP="gregflix.site"
-GRUBE_API_IP="64.137.160.54"
-
-alias ssh-grube-api='ssh root@$GRUBE_API_IP'
-alias ssh-gregflix='ssh root@$GREGFLIX_IP'
-alias deploy-gregflix='ssh-gregflix "./start-app.sh"'
 
 # Temp aliases
 alias restart-net="sudo service network-manager restart"

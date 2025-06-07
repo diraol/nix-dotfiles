@@ -7,66 +7,162 @@
     plugins = with pkgs.tmuxPlugins; [
         sensible
         yank
-        {
-            plugin = dracula;
-            extraConfig = ''
-                set -g @dracula-show-fahrenheit false
-                set -g @dracula-show-weather false
-                set -g @dracula-show-battery false
-                set -g @dracula-show-powerline true
-                set -g @dracula-show-left-icon smiley
-            '';
-        }
+        better-mouse-mode
      ];
 
     extraConfig = ''
-        # Dracula Color Pallette
-        white='#f8f8f2'
-        gray='#44475a'
-        dark_gray='#282a36'
-        light_purple='#bd93f9'
-        dark_purple='#6272a4'
-        cyan='#8be9fd'
-        green='#50fa7b'
-        orange='#ffb86c'
-        red='#ff5555'
-        pink='#ff79c6'
-        yellow='#f1fa8c'
+        bind - split-window -v -c '#{pane_current_path}'
+        bind '\' split-window -h -c '#{pane_current_path}'
+        bind c new-window -c '#{pane_current_path}'
 
-        bind-key -n M-x kill-pane
-        bind-key -n M-c new-window
-        bind -n M-Right next-window
-        bind -n M-Left previous-window
-        bind-key -n M-h split-window -h
-        bind-key -n M-v split-window -v
-        bind-key -n M-o select-pane -t :.+
-        bind-key M-a last-window
-        bind-key -n F10 resize-pane -Z
-        bind-key m set-option -g mouse on \; display 'Mouse: ON'
-        bind-key M set-option -g mouse off \; display 'Mouse: OFF'
-        bind-key -n C-Left select-pane -L
-        bind-key -n C-Right select-pane -R
-        bind-key -n C-Up select-pane -U
-        bind-key -n C-Down select-pane -D
-        bind-key -n C-S-Left resize-pane -L
-        bind-key -n C-S-Right resize-pane -R
-        bind-key -n M-y copy-mode
-        bind-key -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "xclip -selection c"
-        bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "xclip -in -selection clipboard"
-        bind-key -T copy-mode-vi 'v' send -X begin-selection
-        bind-key -T copy-mode-vi 'y' send -X copy-pipe-and-cancel "xclip -in -selection clipboard"
+        bind r source-file ~/.tmux.conf
+        set-option -g default-terminal "tmux-256color" #set $TERM variable so programs know how to behave
+        set-option -g base-index 1 #start counting windows at 1 instead of 0 (for more logical keyboard-switching)
+        set-option -g pane-base-index 1 #start counting panes at 1 instead of 0
+        set-option -g renumber-windows on #when a window is closed, renumber the remaining windows
 
-        set -s escape-time 0
-        set-option -g allow-rename off
-        set-option -g mouse on
-        set -g history-limit 20000
+        set-option -gw xterm-keys on
+        bind -n C-PageUp send-keys C-PageUp
+        bind -n C-PageDown send-keys C-PageDown
+        bind -n M-0 send-keys M-0
+        bind -n M-1 send-keys M-1
+        bind -n M-2 send-keys M-2
+        bind -n M-3 send-keys M-3
+        bind -n M-4 send-keys M-4
+        bind -n M-5 send-keys M-5
+        bind -n M-6 send-keys M-6
+        bind -n M-7 send-keys M-7
+        bind -n M-8 send-keys M-8
+        bind -n M-9 send-keys M-9
+
+        # Binding Shift+Arrows to switch between Panes
+        # bind -n S-Left select-pane -L
+        # bind -n S-Right select-pane -R
+        # bind -n S-Up select-pane -U
+        # bind -n S-Down select-pane -D
+
+        # Smart pane switching with awareness of Vim splits.
+        # We are using Shift+Arrows to switch between Panes
+        # See: https://github.com/christoomey/vim-tmux-navigator
+        # Binding Ctrl+Shift to move to cycle between tmux windows.
+        bind-key -n C-Tab next-window
+        bind-key -n C-S-Tab previous-window
+        bind-key -n C-S-n new-window
+        is_vim="ps -o state= -o comm= -t '#{pane_tty}' \
+            | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?(view|n?vim?x?)(diff)?$'"
+        bind -n S-Left if-shell "$is_vim" "send-keys S-Left"  "select-pane -L"
+        bind -n S-Right if-shell "$is_vim" "send-keys S-Right"  "select-pane -R"
+        bind -n S-Up if-shell "$is_vim" "send-keys S-Up"  "select-pane -U"
+        bind -n S-Down if-shell "$is_vim" "send-keys S-Down"  "select-pane -D"
+        tmux_version='$(tmux -V | sed -En "s/^tmux ([0-9]+(.[0-9]+)?).*/\1/p")'
+        if-shell -b '[ "$(echo "$tmux_version < 3.0" | bc)" = 1 ]' \
+            "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\'  'select-pane -l'"
+        if-shell -b '[ "$(echo "$tmux_version >= 3.0" | bc)" = 1 ]' \
+            "bind-key -n 'C-\\' if-shell \"$is_vim\" 'send-keys C-\\\\'  'select-pane -l'"
+        bind -n S-'\' if-shell "$is_vim" "send-keys S-\\" "select-pane -l"
+
+        bind -n C-l send-keys 'C-l'
+
+        # Remove ESC time wait
+        set -g escape-time 0
+        set -g repeat-time 300
+
+        set -g focus-events on
+
+        set-window-option -g mode-keys vi
+
+        # Gruvbox theme config from:
+        # https://github.com/egel/tmux-gruvbox/
+        set-option -g status "on"
+
+        # default statusbar colors
+        set-option -g status-bg colour237 #bg1
+        set-option -g status-fg colour223 #fg1
+
+        # default window title colors
+        # set-window-option -g window-status-bg colour214 #yellow
+        # set-window-option -g window-status-fg colour237 #bg1
+        #
+        # set-window-option -g window-status-activity-bg colour237 #bg1
+        # set-window-option -g window-status-activity-fg colour248 #fg3
+        #
+        # # active window title colors
+        # set-window-option -g window-status-current-bg default
+        # set-window-option -g window-status-current-fg colour237 #bg1
+        #
+        # # pane border
+        # set-option -g pane-active-border-fg colour250 #fg2
+        # set-option -g pane-border-fg colour237 #bg1
+        #
+        # # message infos
+        # set-option -g message-bg colour239 #bg2
+        # set-option -g message-fg colour223 #fg1
+        #
+        # # writting commands inactive
+        # set-option -g message-command-bg colour239 #fg3
+        # set-option -g message-command-fg colour223 #bg1
+
+        # pane number display
+        set-option -g display-panes-active-colour colour250 #fg2
+        set-option -g display-panes-colour colour237 #bg1
+
+        # clock
+        set-window-option -g clock-mode-colour colour109 #blue
+
+        # bell
+        set-window-option -g window-status-bell-style fg=colour235,bg=colour167 #bg, red
+
+        ## Theme settings mixed with colors (unfortunately, but there is no cleaner way)
+        # set-option -g status-attr "none"
+        set-option -g status-justify "left"
+        # set-option -g status-left-attr "none"
+        set-option -g status-left-length "80"
+        # set-option -g status-right-attr "none"
+        set-option -g status-right-length "80"
+        # set-window-option -g window-status-activity-attr "none"
+        # set-window-option -g window-status-attr "none"
+        set-window-option -g window-status-separator ""
+
+        set-option -g status-left "#[fg=colour248, bg=colour241] #S #[fg=colour241, bg=colour237, nobold, noitalics, nounderscore]"
+        set-option -g status-right "#[fg=colour239, bg=colour237, nobold, nounderscore, noitalics]#[fg=colour246,bg=colour239] %Y-%m-%d  %H:%M #[fg=colour248, bg=colour239, nobold, noitalics, nounderscore]#[fg=colour237, bg=colour248] #h "
+
+        set-window-option -g window-status-current-format "#[fg=colour239, bg=colour248, :nobold, noitalics, nounderscore]#[fg=colour239, bg=colour214] #I #[fg=colour239, bg=colour214, bold] #W #[fg=colour214, bg=colour237, nobold, noitalics, nounderscore]"
+        set-window-option -g window-status-format "#[fg=colour237,bg=colour239,noitalics]#[fg=colour223,bg=colour239] #I #[fg=colour223, bg=colour239] #W #[fg=colour239, bg=colour237, noitalics]"
+
+        # gruvbox configs ends here
+
+        set-option -g status-interval 5
+        set-option -g visual-activity on
+        set-window-option -g monitor-activity on
+        # set-window-option -g window-status-current-fg white
+
+        # Mouse copy/paste configs
+        # https://unix.stackexchange.com/questions/318281/how-to-copy-and-paste-with-a-mouse-with-tmux
+        set -g mouse on
+        bind -n WheelUpPane if-shell -F -t = "#{mouse_any_flag}" "send-keys -M" "if -Ft= '#{pane_in_mode}' 'send-keys -M' 'select-pane -t=; copy-mode -e; send-keys -M'"
+        bind -n WheelDownPane select-pane -t= \; send-keys -M
+        bind -n C-WheelUpPane select-pane -t= \; copy-mode -e \; send-keys -M
+        bind -T copy-mode-vi    C-WheelUpPane   send-keys -X halfpage-up
+        bind -T copy-mode-vi    C-WheelDownPane send-keys -X halfpage-down
+        bind -T copy-mode-emacs C-WheelUpPane   send-keys -X halfpage-up
+        bind -T copy-mode-emacs C-WheelDownPane send-keys -X halfpage-down
+
+        # To copy, left click and drag to highlight text in yellow,
+        # once you release left click yellow text will disappear and will automatically be available in clibboard
+        # # Use vim keybindings in copy mode
         setw -g mode-keys vi
-        set-option -g status-interval 3
-        set-option -g automatic-rename on
-        set-option -g automatic-rename-format '#{b:pane_current_path}'
+        # Update default binding of `Enter` to also use copy-pipe
+        unbind -T copy-mode-vi Enter
+        bind-key -T copy-mode-vi Enter send-keys -X copy-pipe-and-cancel "wl-copy"
+        bind-key -T copy-mode-vi MouseDragEnd1Pane send-keys -X copy-pipe-and-cancel "wl-copy"
 
-        set-window-option -g window-status-current-format "#[fg=$gray,bg=$dark_purple]$left_sep#[fg=$white,bg=$dark_purple] #W$current_flags #[fg=$dark_purple,bg=$gray]$left_sep"
-        set-window-option -g window-status-format "#[fg=$white]#[bg=$gray] #W$flags"
+        # List of plugins
+
+        set -g @yank_with_mouse on
+        set -g @scroll-down-exit-copy-mode off
+        set -g @scroll-without-changing-pane on
+        set -g @scroll-in-moused-over-pane on
+        set -g @emulate-scroll-forno-muse-alternate-buffer on
     '';
   };
 }

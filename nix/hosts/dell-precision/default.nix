@@ -1,6 +1,6 @@
 { pkgs, config, self, ... }:
 let
-  username = "greg";
+  username = "diraol";
 in
 {
   imports = [
@@ -9,7 +9,6 @@ in
     ../../home-manager/programs/vscode.nix
     ../../home-manager/programs/clojure.nix
     ../../home-manager/programs/python.nix
-    ../../home-manager/programs/android.nix
     ../../home-manager/programs/java.nix
     ../../home-manager/programs/idea.nix
     ../../home-manager/programs/zsh.nix

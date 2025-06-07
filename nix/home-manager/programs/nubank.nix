@@ -10,7 +10,7 @@
     kubelogin-oidc
     stable.kubectl
     zoom-us
-    plantuml
+    # plantuml
     tektoncd-cli
     stable.yubikey-manager
     stable.yubikey-personalization-gui

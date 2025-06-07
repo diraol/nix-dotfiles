@@ -1,0 +1,8 @@
+[user]
+	email = diego.rabatone@nubank.com.br
+    signingkey = diego.rabatone@nubank.com.br
+# 	signingkey = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCp7cq2yPki1mdE7xwuJg0GwUhFMScfKRgcC7VyVcCaDLl1GyOzakqmtwlVInL/p8vO5c9Q7E+HSbqQf814FRUiZQd6boD8HCGkEj7gUVqBtWRtvhE73RlRh3Vetmrm0crP4FKVG0cHpe01TJMWxsIbaxV6Vmq9XBoMiXi3VPm9X+TXIn/Y/DzA5Bn2TdFf8POIGOeHz5qn8ikc/Y73hngSweaFsT/ORRZlds3sIWs8YpzGsyW3GNUnoi0BQKaVZZ/sWFWCv0SJqBia5cDMFPCMPAlTUGgIIMpYyKBOE6vXnW7e9UF/97qRlnE/Q3wNC8KxhvQ7DKkfcBsu8eSeMuD0mpHXVOAge5p/UOi1hPoeBYZHYIdjroUK3i6a6J9/8dZib86ng3BuR/mckAfryWpPcMNOJtjAcGNLiwaSB1ODTGIWzD9WOHmF3t23FWXgfj0sPor1SAULn6D5o/0Ti4kywLY09vQFD+2Qqt4ncxeROaB+87FmGGExi0MkzRI9m/enl8GbQX4ar/ryOzIt9t+ghLIpSWK0jpksBW55WngLyx08pvgMRIf8Kkkvzkbe9QqmcZZn0fNcZ6eaT+MnT2ZrcyzDFEisSIdybKbWpTQktdFkqkuPccZJyLtn/liveu61uSe19Eos/9DA9zeT735m/UC+EIHkrmbgx4/2AF4cHQ== diego.rabatone@diego.rabatone"
+[commit]
+	gpgsign = true
+[gpg]
+    program = gpg2

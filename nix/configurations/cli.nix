@@ -6,11 +6,12 @@
   environment.shells = [ pkgs.zsh ];
 
   programs = {
-    adb.enable = true;
+    adb.enable = false;
     ssh.startAgent = false;
     gnupg.agent.enable = true;
     gnupg.agent.enableSSHSupport = true;
 
     bash.completion.enable = true;
+    zsh.completion.enable = true;
   };
 }

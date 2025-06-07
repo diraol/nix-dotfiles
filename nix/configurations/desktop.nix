@@ -5,13 +5,13 @@
 
   environment.systemPackages = with pkgs;
     [
-      betterlockscreen
-      dmenu
       dunst
+      # mako  # replacement for dunst ?
       font-manager
       gimp
       stable.google-chrome
       gparted
+      gsimplecal
       inkscape
       (flameshot.override { enableWlrSupport = true; })
       libinput-gestures
@@ -22,16 +22,16 @@
       pavucontrol
       peek
       waybar
-      playerctl
       pulsemixer
-      rofi-wayland
+      # rofi-wayland
+      wofi  # replacement of rofi-wayland and dmenu
       kanshi
       slurp
       swaybg
       udiskie
       udisks
-      transmission_4-gtk
-      vlc
+      wdisplays
+      wl-clipboard
       woeusb
       wf-recorder
       adwaita-icon-theme
@@ -80,7 +80,7 @@
       #  enable = true;
       #  greeters.mini = {
       #    enable = true;
-      #    user = "greg";
+      #    user = "diegorabatone";
       #    extraConfig = ''
       #          [greeter]
       #          show-password-label = false

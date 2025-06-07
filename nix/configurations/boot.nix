@@ -8,7 +8,7 @@
     # kernelPackages = pkgs.linuxPackages_6_6;
     kernelModules = [ "kvm-intel" ];
     extraModulePackages = [ ];
-    supportedFilesystems = [ "ntfs" ];
+    supportedFilesystems = [ ];
 
     loader.grub = {
       enable = true;
@@ -27,7 +27,7 @@
   virtualisation = {
     docker.enable = true;
 
-    virtualbox.host.enable = true;
+    virtualbox.host.enable = false;
   };
 
   nix.settings.max-jobs = lib.mkDefault 8;

@@ -13,14 +13,13 @@
       ../../home-manager/programs/clojure.nix
       ../../home-manager/programs/vscode.nix
       ../../home-manager/programs/idea.nix
-      ../../home-manager/programs/android.nix
-      ../../home-manager/programs/gregflix.nix
       ../../home-manager/programs/python.nix
       ../../home-manager/programs/nubank.nix
       ../../home-manager/programs/java.nix
+      ../../home-manager/programs/opentofu.nix
     ];
   };
-  networking.hostName = "gregnix-nubank";
+  networking.hostName = "diraol-nubank";
 
   boot = {
     extraModprobeConfig = ''options bluetooth disable_ertm=1'';

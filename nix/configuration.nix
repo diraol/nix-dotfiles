@@ -27,14 +27,12 @@ in
   environment.sessionVariables.NIXOS_OZONE_WL = "1";
   services.printing.enable = true;
 
-  users.users.greg = {
+  users.users.diraol = {
     isNormalUser = true;
     extraGroups = [
       "wheel"
       "docker"
-      "gamemode"
       "networkmanager"
-      "vboxusers"
       "video"
       "audio"
       "sound"
@@ -47,7 +45,7 @@ in
   };
 
   security.sudo.extraRules= [
-    {  users = [ "greg" ];
+    {  users = [ "diraol" ];
        commands = [
          { command = "ALL" ;
            options= [ "NOPASSWD" ];
@@ -57,8 +55,8 @@ in
   ];
 
   nix = {
-    settings.allowed-users = [ "greg" ];
-    settings.trusted-users = [ "root" "greg" ];
+    settings.allowed-users = [ "diraol" ];
+    settings.trusted-users = [ "root" "diraol" ];
     nixPath = [
       "nixpkgs=${self.inputs.nixpkgs}"
     ];
