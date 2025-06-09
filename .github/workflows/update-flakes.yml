@@ -30,13 +30,9 @@ jobs:
           git config user.email "${{ github.actor }}@users.noreply.github.com"
           make update-and-commit -C nix
 
-      - name: "Build gregnix-personal ❄"
+      - name: "Build diraol-personal ❄"
         run: |
-          make build-gregnix-personal -C nix
-
-      - name: "Build gregnix-work ❄"
-        run: |
-          make build-gregnix-work -C nix
+          make build-diraol-personal -C nix
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v4

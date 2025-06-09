@@ -37,23 +37,8 @@
 		]
 	},
 	"workbench.startupEditor": "newUntitledFile",
-	"dart.previewFlutterUiGuides": true,
-	"[dart]": {
-		"editor.formatOnSave": true,
-		"editor.formatOnType": true,
-		"editor.rulers": [
-			80
-		],
-		"editor.selectionHighlight": false,
-		"editor.suggest.snippetsPreventQuickSuggestions": false,
-		"editor.suggestSelection": "first",
-		"editor.tabCompletion": "onlySnippets",
-		"editor.wordBasedSuggestions": "off",
-		"files.insertFinalNewline": true
-	},
 	"debug.onTaskErrors": "debugAnyway",
 	"html.trace.server": "verbose",
-	"dart.flutterSdkPath": "/home/greg/flutter",
 	"calva.referencesCodeLens.enabled": true,
 	"editor.hover.enabled": true,
 	"calva.fmt.configPath": "CLOJURE-LSP",

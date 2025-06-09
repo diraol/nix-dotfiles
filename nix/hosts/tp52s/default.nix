@@ -5,7 +5,7 @@
     ../../configuration.nix
   ];
 
-  home-manager.users.greg = {
+  home-manager.users.diraol = {
     imports = [
       ../../home-manager/common.nix
       ../../configurations/overlays.nix

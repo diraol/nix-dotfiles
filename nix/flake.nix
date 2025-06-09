@@ -32,7 +32,7 @@
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      homeConfigurations.greg = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations.diraol = home-manager.lib.homeManagerConfiguration {
         modules = [ ./hosts/dell-precision ];
 
         inherit pkgs;

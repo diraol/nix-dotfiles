@@ -24,5 +24,5 @@ end
 
 require('lspconfig')['clojure_lsp'].setup{
     on_attach = on_attach,
-    cmd = { "/home/greg/dev/clojure-lsp/clojure-lsp" }
+    cmd = { "/home/diraol/dev/clojure-lsp/clojure-lsp" }
 }

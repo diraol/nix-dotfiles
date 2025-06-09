@@ -29,8 +29,8 @@ echo "export XDG_DATA_DIRS=$HOME/.nix-profile/share:$HOME/.share:\"${XDG_DATA_DI
 
 echo "if [ -e $HOME/.nix-profile/etc/profile.d/nix.sh ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi" >> ~/.zprofile
 
-echo "/home/greg/.nix-profile/bin/zsh" | sudo tee -a /etc/shells > /dev/null
-sudo chsh -s /home/greg/.nix-profile/bin/zsh
+echo "/home/diraol/.nix-profile/bin/zsh" | sudo tee -a /etc/shells > /dev/null
+sudo chsh -s /home/diraol/.nix-profile/bin/zsh
 
 # Natural scrolling
 echo "xinput set-prop 13 324 1" >> ~/.profile

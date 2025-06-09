@@ -23,7 +23,7 @@
     };
   };
 
-  users.users.greg = {
+  users.users.diraol = {
     isNormalUser = true;
     uid = 1000;
     password = "123456";
