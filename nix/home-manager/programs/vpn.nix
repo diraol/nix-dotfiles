@@ -16,3 +16,5 @@
     };
   };
 }
+
+# TODO: Download https://github.com/nubank/ansible-pull/blob/master/common/files/Zscaler-linux-3.7.1.71-installer.run
