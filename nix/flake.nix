@@ -16,9 +16,9 @@
     };
     flake-utils.url = "github:numtide/flake-utils";
     vim = {
-      url = "github:nix-community/nixvim/master";
-      inputs.nixpkgs.follows = "nixpkgs"
-    }
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nubank.url = "github:nubank/nixpkgs/master";
     vpn = {
       # TODO: replace with ZScaler
