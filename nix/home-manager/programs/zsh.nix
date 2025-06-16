@@ -9,31 +9,28 @@
       enable = true;
       styles.cursor = "fg=#ffffff";
     };
+    # plugins = [ "git" "fzf" ];
     prezto = {
         enable = true;
-        pmodulesDirs = [ "''${config.home.homeDirectory}/.zprezto-contrib" ];
-        plugins = [ "git" "fzf" ];
+        pmoduleDirs = [ "${config.home.homeDirectory}/.zprezto-contrib" ];
         pmodules = [ "environment" "editor" "history" "directory" "spectrum" "utility" "completion" "syntax-highlighting" "history-substring-search" "autosuggestions" "prompt" "tmux" "gpg" "git" "docker" "dpkg" "python" "tmux-xpanes" "enhancd" "kubernetes" "direnv" "node" ];
         # autosuggestions.color = "fg=blue";
         editor.keymap = "vi";
         prompt.theme = "powerlevel10k";
-        virtualenvAutoSwitch = true;
-        virualenvInitialize = true;
+        python.virtualenvAutoSwitch = true;
+        python.virtualenvInitialize = true;
         syntaxHighlighting.highlighters = [ "main" "brackets" "pattern" "line" "root" ];
-        styles = {
+        syntaxHighlighting.styles = {
           builtin = "bg=blue";
           command = "bg=blue";
           function = "bg=blue";
         };
-        pattern = {
+        syntaxHighlighting.pattern = {
             "rm*-rf*" = "fg=white,bold,bg=red";
         };
         tmux.autoStartRemote = true;
         utility.safeOps = false;
 
-        extraConfig = {
-
-        };
         extraModules = [ "enhancd" ];
         extraConfig = ''
             zstyle ":prezto:module:enhancd" command "fzf"

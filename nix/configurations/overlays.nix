@@ -4,7 +4,7 @@ let
   inherit (self) inputs;
 in {
   nixpkgs.overlays = [
-    inputs.emacs.overlay
+    # inputs.macs.overlay
 
     (final: prev: {
       stable = import inputs.stable {
