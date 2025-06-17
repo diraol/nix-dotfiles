@@ -14,7 +14,7 @@ source "/home/${USERNAME:-diraol}/.nix-profile/etc/profile.d/nix.sh"
 NEW_PATH="${HOME}/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}"
 
 if ! grep -q "NIX_PATH=${NIX_PATH}" ~/.bashrc ; then
-	echo "export NIX_PATH=${NEW_PATH}" >> ~/.bashrc
+	echo "export NIX_PATH=\"${NEW_PATH}\"" >> ~/.bashrc
 	echo "export NIXPKGS_ALLOW_UNFREE=1" >> ~/.bashrc
 fi
 
@@ -23,23 +23,23 @@ nix-env -iA nixpkgs.home-manager
 mkdir -p ~/.config/nix
 EXP_FEAT="experimental-features = nix-command flakes"
 if ! grep -q "${EXP_FEAT}" ~/.config/nix/nix.conf; then
-	echo "" > ~/.config/nix/nix.conf
+	echo "${EXP_FEAT}" > ~/.config/nix/nix.conf
 fi
 
 cd ~/.dotfiles/nix
 home-manager switch --flake .
 
-NEW_XDG_DATA_DIRS="${HOME}/.nix-profile/share:${HOME}/.share:\"${XDG_DATA_DIRS:-/usr/local/share/:/usr/share/}\""
+NEW_XDG_DATA_DIRS="${HOME}/.nix-profile/share:${HOME}/.share:${XDG_DATA_DIRS:-/usr/local/share/:/usr/share/}"
 if ! grep -q "${NEW_XDG_DATA_DIRS}" ~/.profile ; then
-	echo "export XDG_DATA_DIRS=${NEW_XDG_DATA_DIRS}" >> ~/.profile
+	echo "export XDG_DATA_DIRS=\"${NEW_XDG_DATA_DIRS}\"" >> ~/.profile
 fi
 if ! grep -q "${NEW_XDG_DATA_DIRS}" ~/.zprofile ; then
-	echo "export XDG_DATA_DIRS=${NEW_XDG_DATA_DIRS}" >> ~/.zprofile
+	echo "export XDG_DATA_DIRS=\"${NEW_XDG_DATA_DIRS}\"" >> ~/.zprofile
 fi
 
 SRC_NIX="if [ -e ${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ${HOME}/.nix-profile/etc/profile.d/nix.sh; fi"
 if ! grep -q "${SRC_NIX}" ~/.zprofile; then
-	echo "" >> ~/.zprofile
+	echo "${SRC_NIX}" >> ~/.zprofile
 fi
 
 NIX_ZSH="/home/diraol/.nix-profile/bin/zsh"
