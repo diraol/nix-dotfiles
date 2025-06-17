@@ -69,3 +69,5 @@ autoload -Uz compinit && compinit
 alias lzd='lazydocker'
 
 [ -f ~/.ssh/github ] && ssh-add ~/.ssh/github > /dev/null
+
+if [ -e /home/diraol/.nix-profile/etc/profile.d/nix.sh ]; then . /home/diraol/.nix-profile/etc/profile.d/nix.sh; fi # added by Nix installer
