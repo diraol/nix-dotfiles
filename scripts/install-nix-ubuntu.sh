@@ -11,10 +11,10 @@ sudo chown "${USERNAME:-diraol}" /nix
 sh <(curl -L https://nixos.org/nix/install) --no-daemon
 source "/home/${USERNAME:-diraol}/.nix-profile/etc/profile.d/nix.sh"
 
-NEW_PATH="${HOME}/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels${NIX_PATH:+:$NIX_PATH}"
+NEW_PATH="${HOME}/.nix-defexpr/channels:/nix/var/nix/profiles/per-user/root/channels"
 
-if ! grep -q "NIX_PATH=${NIX_PATH}" ~/.bashrc ; then
-	echo "export NIX_PATH=\"${NEW_PATH}\"" >> ~/.bashrc
+if ! grep -q "${NEW_PATH}" ~/.bashrc ; then
+	echo "export NIX_PATH=\"${NEW_PATH}:${NIX_PATH:+:$NIX_PATH}\"" >> ~/.bashrc
 	echo "export NIXPKGS_ALLOW_UNFREE=1" >> ~/.bashrc
 fi
 
@@ -29,12 +29,12 @@ fi
 cd ~/.dotfiles/nix
 home-manager switch --flake .
 
-NEW_XDG_DATA_DIRS="${HOME}/.nix-profile/share:${HOME}/.share:${XDG_DATA_DIRS:-/usr/local/share/:/usr/share/}"
+NEW_XDG_DATA_DIRS="${HOME}/.nix-profile/share:${HOME}/.share"
 if ! grep -q "${NEW_XDG_DATA_DIRS}" ~/.profile ; then
-	echo "export XDG_DATA_DIRS=\"${NEW_XDG_DATA_DIRS}\"" >> ~/.profile
+	echo "export XDG_DATA_DIRS=\"${NEW_XDG_DATA_DIRS}:${XDG_DATA_DIRS:-/usr/local/share/:/usr/share/}\"" >> ~/.profile
 fi
 if ! grep -q "${NEW_XDG_DATA_DIRS}" ~/.zprofile ; then
-	echo "export XDG_DATA_DIRS=\"${NEW_XDG_DATA_DIRS}\"" >> ~/.zprofile
+	echo "export XDG_DATA_DIRS=\"${NEW_XDG_DATA_DIRS}:${XDG_DATA_DIRS:-/usr/local/share/:/usr/share/}\"" >> ~/.zprofile
 fi
 
 SRC_NIX="if [ -e ${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ${HOME}/.nix-profile/etc/profile.d/nix.sh; fi"
