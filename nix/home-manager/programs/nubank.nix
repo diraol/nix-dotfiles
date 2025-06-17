@@ -1,9 +1,9 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [
-    ./vpn.nix
-  ];
+  # imports = [
+  #   ./vpn.nix
+  # ];
 
   home.packages = with pkgs; [
     aws-iam-authenticator
@@ -19,6 +19,5 @@
     mob
     stable.protobuf
     stable.buf
-    # (nubank.flutter.override { flutterPackages = stable.flutterPackages; })
   ];
 }

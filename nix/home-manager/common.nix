@@ -19,7 +19,7 @@ in {
   ];
 
   home = {
-    stateVersion = "24.11";
+    stateVersion = "25.05";
     packages = with pkgs; [
       nodePackages.eask
       # master.graalvm-ce
@@ -40,8 +40,6 @@ in {
       pulseaudioFull
       p7zip
       websocat
-      # master.dart
-      # flutter
       hover
       upx
       grim

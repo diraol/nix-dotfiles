@@ -3,7 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    stable.url = "github:NixOS/nixpkgs/nixos-24.05";
+    stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     master.url = "github:NixOS/nixpkgs/master";
     hardware.url = "github:NixOS/nixos-hardware/master";
     home-manager = {
@@ -11,7 +11,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     home-stable = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "stable";
     };
     flake-utils.url = "github:numtide/flake-utils";
@@ -19,12 +19,12 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nubank.url = "github:nubank/nixpkgs/master";
-    vpn = {
-      # TODO: replace with ZScaler
-      url = "github:yuezk/GlobalProtect-openconnect/v2.3.8";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # nubank.url = "github:nubank/nixpkgs/master";
+    # vpn = {
+    #   # TODO: replace with ZScaler
+    #   url = "github:yuezk/GlobalProtect-openconnect/v2.3.8";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
   };
 
   outputs = { self, nixpkgs, home-manager, flake-utils, ... }:
