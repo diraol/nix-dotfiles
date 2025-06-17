@@ -45,6 +45,7 @@
           owner = "belak";
           repo = "prezto-contrib";
           rev = "a05508a716cad6e45e90cb8b0f73c811cbd4438a";
+          sha256 = "sha256-nGbrc4Q66jyOHrEQOt0gyRbllqguoKAAIDoltNIyvJc=";
           fetchSubmodules = true;
         };
       }
