@@ -63,6 +63,8 @@ in {
 
       ln -Tsf ${dotfilesDir}/.config/kitty ~/.config/kitty
       ln -Tsf ${dotfilesDir}/.config/nvim ~/.config/nvim
+
+      mkdir -p ~/.config/Code/User
       ln -sf ${dotfilesDir}/.config/Code/User/keybindings.json ~/.config/Code/User/keybindings.json
       ln -sf ${dotfilesDir}/.config/Code/User/settings.json ~/.config/Code/User/settings.json
 
