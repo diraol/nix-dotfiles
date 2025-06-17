@@ -33,14 +33,7 @@ NEW_XDG_DATA_DIRS="${HOME}/.nix-profile/share:${HOME}/.share"
 if ! grep -q "${NEW_XDG_DATA_DIRS}" ~/.profile ; then
 	echo "export XDG_DATA_DIRS=\"${NEW_XDG_DATA_DIRS}:${XDG_DATA_DIRS:-/usr/local/share/:/usr/share/}\"" >> ~/.profile
 fi
-if ! grep -q "${NEW_XDG_DATA_DIRS}" ~/.zprofile ; then
-	echo "export XDG_DATA_DIRS=\"${NEW_XDG_DATA_DIRS}:${XDG_DATA_DIRS:-/usr/local/share/:/usr/share/}\"" >> ~/.zprofile
-fi
 
-SRC_NIX="if [ -e ${HOME}/.nix-profile/etc/profile.d/nix.sh ]; then . ${HOME}/.nix-profile/etc/profile.d/nix.sh; fi"
-if ! grep -q "${SRC_NIX}" ~/.zprofile; then
-	echo "${SRC_NIX}" >> ~/.zprofile
-fi
 
 NIX_ZSH="/home/diraol/.nix-profile/bin/zsh"
 if ! grep -q "${NIX_ZSH}" /etc/shells; then
@@ -52,7 +45,4 @@ sudo chsh -s "${NIX_ZSH}"
 NAT_SCRL="xinput set-prop 13 324 1"
 if ! grep -q "${NAT_SCRL}" ~/.profile; then
 	echo "${NAT_SCRL}" >> ~/.profile
-fi
-if ! grep -q "${NAT_SCRL}" ~/.zprofile; then
-	echo "${NAT_SCRL}" >> ~/.zprofile
 fi

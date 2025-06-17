@@ -9,6 +9,15 @@
       enable = true;
       styles.cursor = "fg=#ffffff";
     };
+    profileExtra = ''
+      if [[ -z "$XDG_DATA_DIRS" ]]; then
+        XDG_DATA_DIRS="/usr/local/share/:/usr/share/"
+      fi
+      export XDG_DATA_DIRS="$HOME/.nix-profile/share:$HOME/.share:$XDG_DATA_DIRS"
+      if [ -e "$HOME/.nix-profile/etc/profile.d/nix.sh" ]; then . $HOME/.nix-profile/etc/profile.d/nix.sh; fi
+      # Natural scrolling
+      # xinput set-prop 13 324 1
+    '';
     # plugins = [ "git" "fzf" ];
     prezto = {
         enable = true;
