@@ -118,6 +118,9 @@ in
         source "$HOME/.nurc"
       fi
 
+      # Load local zsh aliases (self-contained)
+      [ -f "$DOTFILES/config/.zsh_aliases" ] && source "$DOTFILES/config/.zsh_aliases"
+
       # Vi mode key bindings
       bindkey -v
       

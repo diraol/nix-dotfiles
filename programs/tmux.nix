@@ -3,7 +3,7 @@
 {
   programs.tmux = {
     enable = true;
-    shortcut = "a";
+    shortcut = "b";
     baseIndex = 1;
     newSession = true;
     escapeTime = 0;
