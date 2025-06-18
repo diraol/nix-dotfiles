@@ -31,6 +31,13 @@
     BROWSER = "firefox";
     NIXPKGS_ALLOW_UNFREE = "1";
     DOTFILES = "$HOME/dev/nix-dotfiles";
+    DEFAULT_USER = "diraol";
+    GITHUB_USER = "diraol";
+    # ref: https://github.com/flameshot-org/flameshot/blob/master/docs/Sway%20and%20wlroots%20support.md#basic-steps
+    SDL_VIDEODRIVER = "wayland";
+    _JAVA_AWT_WM_NONREPARENTING = "1";
+    QT_QPA_PLATFORM = "wayland";
+    PYTHON_CONFIGURE_OPTS = "--enable-shared";
   };
 
   # Session path
@@ -38,11 +45,13 @@
     "$HOME/.local/bin"
     "$HOME/bin"
     "$HOME/tools/bin"
+    "$HOME/.pyenv/shims"
     "$HOME/go/bin"
     "$HOME/dev/nu/nucli"  # NUCLI_HOME equivalent
     "/opt/idea/current/bin"
     "$HOME/.cargo/bin"
     "$HOME/.local/share/coursier/bin"
+    "/snap/bin"
   ];
 
   # XDG directories
