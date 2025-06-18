@@ -1,0 +1,6 @@
+# Nubank environment configuration
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+export NU_HOME="$HOME/dev/nu"
+export NUCLI_HOME="$NU_HOME/nucli"
+export NVM_DIR="$HOME/.nvm" 

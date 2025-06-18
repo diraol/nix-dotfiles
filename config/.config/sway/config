@@ -1,0 +1,304 @@
+################################################################################
+# Loading env vars
+# Or trying to...
+#  And we do want xwayland enable for "legacy" apps
+    exec_always "~/.diraol/rc"
+    exec hash dbus-update-activation-environment 2>/dev/null && dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
+    xwayland enable
+
+################################################################################
+#  Variables
+#  Mod1 = Left Alt.
+#  Mod4 = Win Logo key
+#  Mod5 = Right Alt
+    set $mod Mod1
+    set $mods Mod1+Shift
+    set $amod Mod4
+    set $amods Mod4+Shift
+
+################################################################################
+#  Your preferred terminal emulator
+    set $term gnome-terminal
+
+################################################################################
+##  Your preferred application launcher
+#  Some other options:
+#  set $menu j4-dmenu-desktop --dmenu="dmenu -i" --term="i3-sensible-terminal"
+#  set $menu dmenu_path | dmenu | xargs swaymsg exec --
+#  set $menu j4-dmenu-desktop --dmenu="(cat ; (stest -flx $(echo ${PATH} | tr : ' ') | sort -u)) | bemenu -i" --term="i3-sensible-terminal"
+#  set $menu (cat ; (stest -flx $(echo ${PATH} | tr : ' ') | sort -u)) | bemenu -i | wofi --show drun -i | xargs swaymsg exec --
+#  set $menu wofi --show drun -i | xargs swaymsg exec --
+    set $menu wofi --show=drun -i -I -m
+
+################################################################################
+### Idle configuration
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays after another 300 seconds, and turn your screens back on when
+# resumed. It will also lock your screen before your computer goes to sleep.
+    # exec swayidle -w \
+    #          timeout 600 'swaylock -f -c 000000' \
+    #          timeout 900 'swaymsg "output * dpms off"' \
+    #               resume 'swaymsg "output * dpms on"' \
+    #          before-sleep 'swaylock -f -c 000000'
+
+    bindsym Ctrl+Alt+l exec swaylock -f -c 000000
+
+################################################################################
+### Input configuration
+# You can get the names of your inputs by running: swaymsg -t get_inputs
+# Read `man 5 sway-input` for more information about this section.
+# TODO inputs
+    input type:keyboard {
+        xkb_layout us
+        xkb_variant intl
+        xkb_options ctrl:nocaps
+    }
+    input "1133:45085:Logitech_MX_Ergo_Multi-Device_Trackball" {
+        accel_profile adaptive
+        pointer_accel -0.7
+    }
+    input "Apple Inc. Magic Trackpad 2" {
+        tap enabled
+    }
+
+### Key bindings
+#
+# Basics:
+#
+    # Start a terminal
+    bindsym $mod+Return exec $term
+
+    # Kill focused window
+    bindsym $mods+q kill
+
+    # Start your launcher
+    bindsym $mod+d exec $menu
+
+    # Drag floating windows by holding down $mod and left mouse button.
+    # Resize them with right mouse button + $mod.
+    # Despite the name, also works for non-floating windows.
+    # Change normal to inverse to use left mouse button for resizing and right
+    # mouse button for dragging.
+    floating_modifier $mod normal
+
+    # Reload the configuration file
+    bindsym $mods+r reload
+
+    # Exit sway (logs you out of your Wayland session)
+    bindsym $mods+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+
+# Multimedia
+# bindsym --locked $mod+equal exec --no-startup-id pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') +5%
+# bindsym --locked XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') +5%
+# bindsym --locked $mod+minus exec --no-startup-id pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') -5%
+# bindsym --locked XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume $(pacmd list-sinks |awk '/* index:/{print $3}') -5%
+# bindsym --locked XF86AudioMute exec --no-startup-id pactl set-sink-mute $(pacmd list-sinks |awk '/* index:/{print $3}') toggle
+
+bindsym --locked $mod+equal exec --no-startup-id amixer -D pipewire sset Master 5%+
+bindsym --locked XF86AudioRaiseVolume exec --no-startup-id amixer -D pipewire sset Master 5%+
+bindsym --locked $mod+minus exec --no-startup-id amixer -d pipewire sset master 5%-
+bindsym --locked XF86AudioLowerVolume exec --no-startup-id amixer -d pipewire sset master 5%-
+bindsym --locked XF86AudioMute exec --no-startup-id amixer -D pipewire set Master 1+ toggle
+bindsym --locked XF86AudioPlay exec playerctl play-pause
+bindsym --locked XF86AudioNext exec playerctl next
+bindsym --locked XF86AudioPrev exec playerctl previous
+
+# Brightness controls
+bindsym --locked XF86MonBrightnessUp exec --no-startup-id brightnessctl set +5%
+bindsym --locked $mods+equal exec --no-startup-id brightnessctl set +5%
+bindsym --locked XF86MonBrightnessDown exec --no-startup-id brightnessctl set 5%-
+bindsym --locked $mods+minus exec --no-startup-id brightnessctl set 5%-
+
+# Print Screen / Screenshot
+bindsym --locked Ctrl+Print exec --no-startup-id grim "${HOME}/sandbox/screenshot_$(date +%Y-%m-%d_%Hh%Mm%Ss).png"
+bindsym --locked Shift+Print exec --no-startup-id grim -g "$(slurp)" "${HOME}/sandbox/screenshot_$(date +%Y-%m-%d_%Hh%Mm%Ss).png"
+bindsym --locked Print exec --no-startup-id grim -g "$(slurp)" - | wl-copy
+
+#
+# Moving around:
+#
+    # Move your focus around
+    # bindsym $mod+$left focus left
+    # bindsym $mod+$down focus down
+    # bindsym $mod+$up focus up
+    # bindsym $mod+$right focus right
+    # Or use $mod+[up|down|left|right]
+    bindsym $mod+Left focus left
+    bindsym $mod+Down focus down
+    bindsym $mod+Up focus up
+    bindsym $mod+Right focus right
+
+    # Move the focused window with the same, but add Shift
+    # bindsym $mod+Shift+$left move left
+    # bindsym $mod+Shift+$down move down
+    # bindsym $mod+Shift+$up move up
+    # bindsym $mod+Shift+$right move right
+    # Ditto, with arrow keys
+    bindsym $mods+Left move left
+    bindsym $mods+Down move down
+    bindsym $mods+Up move up
+    bindsym $mods+Right move right
+
+# Outputs/Monitors and workspaces positioning
+    include outputs
+    include workspaces
+    bindsym $mod+Next workspace next
+    bindsym $mod+Prior workspace prev
+
+    # Specific workspaces apps
+    assign [app_id="personalfox"] → workspace $wsp
+    assign [app_id="deezer"] → workspace $wsd
+    assign [app_id="[Tt]elegram.*"] → workspace $wst
+    assign [class="[Tt]elegram.*"] → workspace $wst
+    assign [class="[Ff]ranz"] → workspace $wsm
+    assign [class="Slack"] → workspace $wsm
+    assign [class="[Ss]ignal"] → workspace 10
+    assign [app_id="[Ss]ignal"] → workspace 10
+
+#
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+h splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    # bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    # Sticky mode for floating windows. The sticked window stay visible on all
+    # workspaces.
+    bindsym $mod+s sticky toggle
+
+    # Make the current focus fullscreen
+    bindsym $mod+f fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mods+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+
+#
+# Scratchpad:
+#
+    # Move the currently focused window to the scratchpad
+    bindsym Mod5+Shift+minus move scratchpad
+
+    # Show the next scratchpad window or hide the focused scratchpad window.
+    # If there are multiple scratchpad windows, this command cycles through them.
+    bindsym Mod5+minus scratchpad show
+
+    mode "$scratchpad" {
+        # audio
+        bindsym a [app_id="pavucontrol"] scratchpad show
+        # calendar
+        bindsym c [app_id="gnome-calendar"] scratchpad show
+        # keepass
+        bindsym k [app_id="org.keepassxc.KeePassXC"] scratchpad show
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+    }
+    # Enter scratchpad mode
+    bindsym $mods+s mode "$scratchpad"
+
+#
+# Notifications
+#
+bindsym $mod+n mode notifications
+bindsym $mods+z exec makoctl dismiss -a
+mode notifications {
+	bindsym Escape mode default
+	bindsym Return exec makoctl invoke; exec makoctl dismiss; mode default
+	bindsym d exec makoctl dismiss; mode default
+	bindsym a exec makoctl dismiss -a; mode default
+}
+
+#
+# Floaters and scratchpads
+#
+    # Volume control floating
+    for_window [app_id="pavucontrol"] floating enable
+
+    # General Application Selection
+    for_window [title="Launch Application"] floating enable
+    # Zoom Chat floating
+    for_window [title="Zoom Group Chat"] floating enable
+    for_window [title="Zoom - Free Account"] floating enable
+    for_window [instance="zoom" title="Settings"] floating enable
+    for_window [app_id="zoom"] floating enable
+
+    # Keepass scratchpad
+    for_window [instance="keepassxc"] floating enable
+    for_window [instance="keepassxc"] move scratchpad
+    for_window [instance="keepassxc"] scratchpad show
+    for_window [app_id="org.keepassxc.KeePassXC"] floating enable
+    for_window [app_id="org.keepassxc.KeePassXC"] move scratchpad
+    for_window [app_id="org.keepassxc.KeePassXC"] scratchpad show
+    # bindsym $amods+k [instance="keepassxc"] scratchpad show
+    bindsym $amods+k [app_id="org.keepassxc.KeePassXC"] scratchpad show
+
+    # Firefox
+    # for_window [name="Firefox - Sharing Indicator"] floating enable
+    for_window [title=".*Firefox.*Sharing Indicator.*"] floating enable
+    for_window [app_id="(cabifox|NoTrack|personalfox|askfox)" title="Picture-in-Picture"] floating enable, sticky enable, border none
+
+    # Bluetooth Manager
+    for_window [app_id="blueman-manager"] floating enable
+
+    # Gsimplecal
+    bindsym $mod+c exec gsimplecal
+
+    # Calculator
+    for_window [app_id="gnome-calculator"] floating enable
+
+#
+# Resizing containers:
+#
+mode "resize" {
+    bindsym Left resize shrink width 10px
+    bindsym Down resize grow height 10px
+    bindsym Up resize shrink height 10px
+    bindsym Right resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# set primary gruvbox colorscheme colors
+set $bg #282828
+set $red #cc241d
+set $green #98971a
+set $yellow #d79921
+set $blue #458588
+set $purple #b16286
+set $aqua #689d68
+set $gray #a89984
+set $darkgray #1d2021
+set $white #ebdbb2
+
+
+#end of window title bars & borders section
+include theme
+
+include /etc/sway/config.d/*
+
+# Status Bar:
+bar {
+    swaybar_command waybar
+}
+
+include init
+
+# Start workspace Messaging at eDP-1 and workspace 1 at DP-2
+workspace $wsm output eDP-1 DP-2 DP-1
+workspace 1 output DP-2 DP-1 eDP-1

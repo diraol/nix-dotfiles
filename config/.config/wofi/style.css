@@ -1,0 +1,39 @@
+window {
+    font-size: 14px;
+    font-family: Inconsolata Nerd Font;
+    margin: 5px;
+    border: none;
+    background: #292b2e;
+    color: #fdf6e3;
+}
+
+#input {
+    margin: 2px;
+    border: 1px solid #292b2e;
+    background-color: #1a1a1a;
+    color: #fdf6e3;
+}
+
+#inner-box {
+    margin: 5px;
+    border: 2px solid #292b2e;
+    background-color: #292b2e;
+}
+
+#outer-box {
+    margin: 0px;
+    border: 0px;
+    background-color: #292b2e;
+}
+
+#scroll {
+    margin: 5px;
+    border: 2px solid #1a1a1a;
+    background-color: #1a1a1a;
+}
+
+#text {
+    margin: 5px;
+    /*border: 2px solid #2aa198;*/
+    background-color: transparent;
+}

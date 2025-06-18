@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+# Local ZSH aliases for nix-dotfiles
+# This file contains all user-customizable aliases.
+# Edit with: al
+
+# =============================================================================
+# Nix & Home Manager
+# =============================================================================
+alias rebuild-home="home-manager switch --flake $DOTFILES#diraol"
+alias rebuild-dotfiles="home-manager switch --flake $DOTFILES#diraol"
+alias nix-gc="nix-collect-garbage -d"  # Clean up old generations
+
+# =============================================================================
+# Configuration Editing
+# =============================================================================
+alias al="$EDITOR $DOTFILES/config/.zsh_aliases"      # Edit aliases
+alias edit-zsh="$EDITOR $DOTFILES/programs/zsh.nix"   # Edit ZSH config
+alias edit-git="$EDITOR $DOTFILES/programs/git.nix"   # Edit Git config
+alias edit-tmux="$EDITOR $DOTFILES/programs/tmux.nix" # Edit Tmux config
+alias dotfiles="$EDITOR $DOTFILES"                    # Open dotfiles directory
+
+# =============================================================================
+# System Utilities
+# =============================================================================
+alias fpo="sudo shutdown -P 0"                        # Fast power off
+alias pl="ps aux | grep"                              # Process list grep
+alias k="kill -9"                                     # Force kill
+alias c="xclip -selection clipboard"                  # Copy to clipboard
+alias restart-net="sudo service network-manager restart"
+alias restart-chrome="killall chrome; google-chrome-stable"
+
+# =============================================================================
+# Development Tools
+# =============================================================================
+alias tm="tmuxinator start personal"                  # Start tmux session
+alias killmux="tmux kill-window -a && exit"          # Kill tmux session
+alias lzd="lazydocker"                               # Docker TUI
+
+# Git shortcuts
+alias gs="git status"
+alias gd="git diff"
+alias ga="git add"
+alias gc="git commit"
+alias gp="git push"
+alias gl="git pull"
+
+# =============================================================================
+# Audio & Notifications
+# =============================================================================
+alias s="espeak"                                     # Text to speech
+alias hey="s -v pt-br 'se liga, cabô' && notify-send 'Hey'"  # Attention alert
+
+# =============================================================================
+# Language-Specific Development
+# =============================================================================
+# Clojure
+alias update-clojure-lsp="bash <(curl -s https://raw.githubusercontent.com/clojure-lsp/clojure-lsp/master/install) --dir ~/dev/clojure-lsp/ --version nightly --static"
+
+# Node.js (if using nvm)
+alias node-latest="nvm install node && nvm use node"
+alias node-lts="nvm install --lts && nvm use --lts"
+
+# =============================================================================
+# Directory Navigation
+# =============================================================================
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias ll="ls -alF"
+alias la="ls -A"
+alias l="ls -CF"
+
+# =============================================================================
+# External Sources (Optional)
+# =============================================================================
+# Source external Nubank aliases if they exist (workspace-specific)
+[ -f ~/.nubank_aliases ] && source ~/.nubank_aliases 2> /dev/null
+
+# Add your custom aliases below this line
+# ============================================================================= 

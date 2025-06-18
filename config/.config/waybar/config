@@ -1,0 +1,173 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 26,
+    "modules-left": [
+        "sway/workspaces",
+        "custom/right-arrow-dark",
+        "sway/mode"
+    ],
+    "modules-center": [
+        "custom/left-arrow-dark",
+        "sway/window",
+        "custom/left-arrow-light",
+        "custom/left-arrow-dark",
+        "custom/clock",
+        "custom/right-arrow-dark"
+    ],
+    "modules-right": [
+        "custom/left-arrow-dark",
+        "idle_inhibitor",
+        "custom/left-arrow-light",
+        "custom/left-arrow-dark",
+        "pulseaudio",
+        "custom/left-arrow-light",
+        "custom/left-arrow-dark",
+        "network",
+        "custom/left-arrow-light",
+        "custom/left-arrow-dark",
+        "disk#root",
+        "disk#home",
+        "custom/left-arrow-light",
+        "custom/left-arrow-dark",
+        "battery#1",
+        "battery#2",
+        "custom/left-arrow-light",
+        "custom/left-arrow-dark",
+        "tray"
+    ],
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": false
+    },
+    "sway/window": {
+        "tooltip": false,
+        "max-length": 60
+    },
+    "sway/mode": {
+        "format": " {}",
+        "max-length": 50
+    },
+    "tray": {
+        "spacing": 5
+    },
+    "custom/clock": {
+        "exec": "date '+%Y-%m-%d %H:%M'",
+        "interval": 45,
+        "tooltip": false,
+        "on-click": "gsimplecal"
+    },
+    "clock1": {
+        "format": "{:%Y-%m-%d %H:%M}",
+        "interval": "45",
+        "tooltip": false,
+        "on-click": "gsimplecal"
+    },
+    "clock#2": {
+        "format": "{:%H:%M}",
+        "interval": "45",
+        "tooltip": false,
+        "on-click": "gsimplecal"
+    },
+    "cpu": {
+        "interval": 5,
+        "format": "  {usage}%"
+    },
+    "disk#root": {
+        "format": " : /{percentage_used}%",
+        "on-click": "nautilus",
+        "path": "/"
+    },
+    "disk#home": {
+        "format": "🏠{percentage_used}%",
+        "on-click": "nautilus",
+        "path": "/home"
+    },
+    "memory": {
+        "interval": 5,
+        "format": "Mem {}%"
+    },
+    "battery#1": {
+        "bat": "BAT0",
+        "states": {
+            "warning": 20,
+            "critical": 10
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "{icon} {capacity}% ",
+        "format-plugged": "{icon} {capacity}% ",
+        "format-warning": "{icon} {capacity}%",
+        "format-critical": "{icon}  {capacity}%",
+        "format-icons": ["", "", "", "", "", "", ""]
+    },
+    "battery#2": {
+        "bat": "BAT1",
+        "states": {
+            "warning": 20,
+            "critical": 10
+        },
+        "format": "{icon} {capacity}%",
+        "format-charging": "{icon} {capacity}% ",
+        "format-plugged": "{icon} {capacity}% ",
+        "format-warning": "{icon} {capacity}%",
+        "format-critical": "{icon}  {capacity}%",
+        "format-icons": ["", "", "", "", "", "", ""]
+    },
+    "network": {
+        "format-wifi": "{essid} ({signalStrength}%) {ipaddr} ",
+        "format-ethernet": "{ifname}: {ipaddr}/{cidr} ",
+        "format-disconnected": " 睊",
+        "tooltip": false,
+        "on-click": "swaymsg exec '$term -e nmtui-connect'"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        },
+        "tooltip": false
+    },
+    "pulseaudio": {
+        "format": "{volume}% {icon} {format_source}",
+        "format-bluetooth": "{volume}% {icon} {desc} | {format_source}",
+        "format-bluetooth-muted": "ﳌ {icon}  {desc} | {format_source}",
+        "format-muted": "婢 {format_source}",
+        "format-source": "{volume}%  ",
+        "format-source-muted": " ",
+        "format-icons": {
+            "headphones": " ",
+            "default": [
+                " ",
+                "墳",
+                " "
+            ]
+        },
+        "scroll-step": 5,
+        "on-click": "pavucontrol"
+    },
+    "backlight": {
+        "format": "{percent}% {icon}",
+        "format-icons": ["", ""]
+    },
+	"custom/left-arrow-dark": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/left-arrow-light": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/right-arrow-clock": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/right-arrow-dark": {
+		"format": "",
+		"tooltip": false
+	},
+	"custom/right-arrow-light": {
+		"format": "",
+		"tooltip": false
+	}
+}

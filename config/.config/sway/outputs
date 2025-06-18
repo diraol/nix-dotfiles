@@ -1,0 +1,37 @@
+### Output configuration
+# output eDP-1
+# set $mode_display AUX SCREEN: (a) ALL DISPLAYS (d) DOCK (u) UNDOCK
+# mode "$mode_display" {
+#   bindsym a "~/.local/bin/monitor_setup"
+#   bindsym d "~/.local/bin/monitor_setup" "DOCK"
+#   bindsym u "~/.local/bin/monitor_setup" "UNDOCK"
+#
+#   # back to normal: Enter or Escape
+#   bindsym Return mode "default"
+#   bindsym Escape mode "default"
+#
+# }
+# bindsym $mods+d mode "$mode_display"
+
+output "eDP-1" bg "~/intranet/Pessoal/Trabalho/Nubank/personal_wallpaper.jpg" fill
+output "DP-1" bg "~/intranet/Pessoal/Trabalho/Nubank/personal_wallpaper.jpg" fill
+output "DP-2" bg "~/intranet/Pessoal/Trabalho/Nubank/personal_wallpaper.jpg" fill
+output "DP-3" bg "~/intranet/Pessoal/Trabalho/Nubank/personal_wallpaper.jpg" fill
+output "DP-4" bg "~/intranet/Pessoal/Trabalho/Nubank/personal_wallpaper.jpg" fill
+output "DP-5" bg "~/intranet/Pessoal/Trabalho/Nubank/personal_wallpaper.jpg" fill
+output "DP-6" bg "~/intranet/Pessoal/Trabalho/Nubank/David_2meses_Out.21_max-86.jpg" fill
+output "DP-7" bg "~/intranet/Pessoal/Trabalho/Nubank/David_2meses_Out.21_max-86.jpg" fill
+output "DP-8" bg "~/intranet/Pessoal/Trabalho/Nubank/David_2meses_Out.21_max-86.jpg" fill
+output "DP-9" bg "~/intranet/Pessoal/Trabalho/Nubank/David_2meses_Out.21_max-86.jpg" fill
+
+# stretch fill fit center fitle
+
+# TODO: Improve `monitor_setup` script to support no eDP-1 and/or cli args
+set $laptop eDP-1
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
+exec_always "~/.config/sway/handlers/laptoplid.sh"
+
+# For the future, kanshictl is not yet a thing
+# bindswitch --locked lid:on exec kanshictl switch home-nolid || kanshictl switch work-nolid
+# bindswitch --locked lid:off exec kanshictl switch home || kanshictl switch work

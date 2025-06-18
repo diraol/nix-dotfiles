@@ -1,0 +1,60 @@
+# Workspaces:
+    # Special workspaces shortcuts
+    # Personal firefox
+    set $wsp 
+    # Music (Deezer)
+    set $wsd ♪
+    # Messaging (Franz/Ferdi)
+    set $wsm 
+    # Telegram
+    set $wst 
+
+    # Switch to workspace
+    bindsym F1 workspace 1
+    bindsym F2 workspace 2
+    bindsym F3 workspace 3
+    bindsym F4 workspace 4
+    bindsym F5 workspace 5
+    bindsym F6 workspace 6
+    bindsym F7 workspace 7
+    bindsym F8 workspace 8
+    bindsym F9 workspace 9
+    bindsym F10 workspace 10
+    bindsym F11 workspace $wsm
+    bindsym F12 workspace $wst
+    bindsym $mod+m workspace $wsd
+    bindsym $mod+p workspace $wsp
+
+    # Move focused container to workspace
+    bindsym $mods+F1 move container to workspace 1
+    bindsym $mods+F2 move container to workspace 2
+    bindsym $mods+F3 move container to workspace 3
+    bindsym $mods+F4 move container to workspace 4
+    bindsym $mods+F5 move container to workspace 5
+    bindsym $mods+F6 move container to workspace 6
+    bindsym $mods+F7 move container to workspace 7
+    bindsym $mods+F8 move container to workspace 8
+    bindsym $mods+F9 move container to workspace 9
+    bindsym $mods+F10 move container to workspace 10
+    bindsym $mods+F11 move container to workspace $wsm
+    bindsym $mods+F12 move container to workspace $wst
+    bindsym $mods+m move container to workspace $wsd
+    bindsym $mods+p move container to workspace $wsp
+
+    # Attaching workspaces to outputs
+    workspace 1  output DP-9 DP-8 DP-7 DP-6 DP-5 DP-4 DP-3 DP-2 DP-1 eDP-1
+    workspace 2  output DP-9 DP-8 DP-7 DP-6 DP-5 DP-4 DP-3 DP-2 DP-1 eDP-1
+    workspace 3  output DP-9 DP-8 DP-7 DP-6 DP-5 DP-4 DP-3 DP-2 DP-1 eDP-1
+    workspace 4  output DP-9 DP-8 DP-7 DP-6 DP-5 DP-4 DP-3 DP-2 DP-1 eDP-1
+    workspace 5  output DP-9 DP-8 DP-7 DP-6 DP-5 DP-4 DP-3 DP-2 DP-1 eDP-1
+    workspace 6  output DP-9 DP-8 DP-7 DP-6 DP-5 DP-4 DP-3 DP-2 DP-1 eDP-1
+    workspace 7  output DP-1 DP-2 DP-3 DP-4 DP-5 DP-6 DP-7 DP-8 DP-9 eDP-1
+    workspace 8  output DP-1 DP-2 DP-3 DP-4 DP-5 DP-6 DP-7 DP-8 DP-9 eDP-1
+    workspace 9  output DP-1 DP-2 DP-3 DP-4 DP-5 DP-6 DP-7 DP-8 DP-9 eDP-1
+    workspace 10 output DP-1 DP-2 DP-3 DP-4 DP-5 DP-6 DP-7 DP-8 DP-9 eDP-1
+    workspace 11 output DP-1 DP-2 DP-3 DP-4 DP-5 DP-6 DP-7 DP-8 DP-9 eDP-1
+    workspace 12 output DP-1 DP-2 DP-3 DP-4 DP-5 DP-6 DP-7 DP-8 DP-9 eDP-1
+    workspace $wsp output eDP-1 DP-1 DP-2 DP-3 DP-4 DP-5 DP-6 DP-7 DP-8 DP-9
+    workspace $wsd output eDP-1 DP-1 DP-2 DP-3 DP-4 DP-5 DP-6 DP-7 DP-8 DP-9
+    workspace $wsm output eDP-1 DP-1 DP-2 DP-3 DP-4 DP-5 DP-6 DP-7 DP-8 DP-9
+    workspace $wst output eDP-1 DP-1 DP-2 DP-3 DP-4 DP-5 DP-6 DP-7 DP-8 DP-9

@@ -1,0 +1,18 @@
+font pango:Inconsolata Nerd Font Regular 11
+# Window title bars & borders section
+    # class                 border|backgr|text|indicator|child_border
+    # Gruvbox based theme options
+        # green version
+            #client.focused          $green $green $darkgray $purple $darkgray
+            #client.focused_inactive $darkgray $darkgray $yellow $purple $darkgray
+            #client.unfocused        $darkgray $darkgray $yellow $purple $darkgray
+            #client.urgent           $red $red $white $red $red
+
+        # blue version
+            client.focused          $blue $blue $darkgray $purple $darkgray
+            client.focused_inactive $darkgray $darkgray $yellow $purple $darkgray
+            client.unfocused        $darkgray $darkgray $yellow $purple $darkgray
+            client.urgent           $red $red $white $red $red
+
+# Hide titlebars
+    default_border none

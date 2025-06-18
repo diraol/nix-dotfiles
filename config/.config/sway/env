@@ -1,0 +1,9 @@
+# PATH=${PATH}:/snap/bin
+PATH=${HOME}/.local/bin:${HOME}/tools/bin:${PATH}
+XDG_DATA_DIRS=${XDG_DATA_DIRS}:${HOME}/.local/share:${HOME}/.local/share/applications:${HOME}/tools/.desktop:/usr/local/share:/usr/share
+XDG_CURRENT_DESKTOP="sway"
+LD_LIBRARY_PATH=/usr/local/lib/x86_64-linux-gnu/
+# XDG_DATA_DIRS=${XDG_DATA_DIRS}:/var/lib/snapd/desktop
+# QT_SCALE_FACTOR=1
+# QT_ACCESSIBILITY=1
+# QT_AUTO_SCREEN_SCALE_FACTOR=0.5

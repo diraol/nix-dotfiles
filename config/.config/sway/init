@@ -1,0 +1,17 @@
+# Exec everytime the config is reloaded
+exec --no-startup-id gnome-keyring-daemon --start --components=pkcs11,secrets,ssh
+# exec eval $(gnome-keyring-daemon --start)
+exec export SSH_AUTH_SOCK
+exec /usr/bin/mako >/tmp/mako.log 2>&1
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+exec --no-startup-id gammastep
+exec_always pkill kanshi
+exec_always kanshi &> /tmp/kanshi.log
+# This is because keepassxc/QT freezes when returning from sleep.
+exec_always pkill keepassxc
+exec_always keepassxc >/dev/null 2>&1
+
+exec nextcloud --background --logfile /tmp/nextcloud.log
+
+exec systemd-notify --ready || true
+exec "systemctl --user import-environment"

@@ -1,0 +1,30 @@
+# Sort files from a directory sorted by size in human-readable format
+alias sizesort='du -a -h --max-depth=1 | sort -hr'
+
+# vim shortcuts
+alias vim='vim -p'
+alias vim_config="vim -p ~/.vimrc.local ~/.vimrc.bundles.local"
+alias vim_update_plugins="vim +BundleInstall +BundleClean +qall" # Vim plugins update
+
+# Force TMUX to support 256 color terminal
+alias tmux="tmux -2"
+
+# Smart alias to search for aliases based on regex
+alias sa='alias | grep -i'
+
+alias ssh='TERM="xterm-256color" ssh'
+
+alias dock="monitor_setup DOCK"
+alias undock="monitor_setup UNDOCK"
+alias aws_me="aws --profile personal"
+
+alias tg="terragrunt"
+
+update_nextcloud() {
+    echo "Which version you want to download?"
+    read version
+    echo "Stopping currently running nextcloud to be able to replace binary"
+    ps aux | grep nextcloud | grep -v grep | awk '{print $2}' | xargs kill -9
+    echo "Downloading nextcloud v${version}"
+    wget https://github.com/nextcloud-releases/desktop/releases/download/v"${version}"/Nextcloud-"${version}"-x86_64.AppImage -O ~/.local/bin/nextcloud
+}
