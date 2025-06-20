@@ -9,11 +9,11 @@ export GOPATH="${HOME}/.go"
 export NVM_DIR="${HOME}/.nvm"
 
 # ref: https://github.com/flameshot-org/flameshot/blob/master/docs/Sway%20and%20wlroots%20support.md#basic-steps
-export SDL_VIDEODRIVER=wayland
+# export SDL_VIDEODRIVER=wayland
 export _JAVA_AWT_WM_NONREPARENTING=1
-export QT_QPA_PLATFORM=wayland
-export XDG_CURRENT_DESKTOP=sway
-export XDG_SESSION_DESKTOP=sway
+# export QT_QPA_PLATFORM=wayland
+# export XDG_CURRENT_DESKTOP=sway
+# export XDG_SESSION_DESKTOP=sway
 
 # This is for libappindicator for tray icons, it is just tricking apps.
 # https://www.reddit.com/r/swaywm/comments/gekpeq/waybar_for_a_functional_tray_install/
@@ -49,5 +49,5 @@ EOF
 # export QT_QPA_PLATFORM="wayland"
 
 # SWAY Variables
-XDG_CURRENT_DESKTOP="sway"
-LD_LIBRARY_PATH=/usr/local/lib/x86_64-linux-gnu/
+# XDG_CURRENT_DESKTOP="sway"
+# LD_LIBRARY_PATH=/usr/local/lib/x86_64-linux-gnu/

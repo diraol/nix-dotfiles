@@ -13,23 +13,41 @@
     
     # Flake utils for easier multi-system support
     flake-utils.url = "github:numtide/flake-utils";
+    
+    # nixGL for OpenGL support on non-NixOS systems
+    nixgl = {
+      url = "github:guibou/nixGL";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, flake-utils, ... }:
+  outputs = { self, nixpkgs, home-manager, flake-utils, nixgl, ... }:
     let
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [
+          nixgl.overlay
+        ];
+      };
     in
     {
       # Home Manager configuration (top-level for home-manager to find)
       homeConfigurations = {
         "diraol" = home-manager.lib.homeManagerConfiguration {
-          pkgs = pkgs;
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config = {
+              allowUnfree = true;
+              allowUnfreePredicate = _: true;
+            };
+          };
           modules = [
             ./home.nix
           ];
           extraSpecialArgs = {
             inherit system;
+            inherit nixgl;
           };
         };
       };
@@ -37,7 +55,12 @@
     # System-specific outputs using flake-utils
     flake-utils.lib.eachDefaultSystem (system:
       let
-        pkgs = nixpkgs.legacyPackages.${system};
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [
+            nixgl.overlay
+          ];
+        };
       in
       {
         # Development shell
@@ -46,6 +69,8 @@
             git
             curl
             wget
+            nixgl.nixGLIntel
+            nixgl.nixVulkanIntel
           ];
         };
       }
