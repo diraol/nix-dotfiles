@@ -99,6 +99,13 @@ in
         source "$HOME/.nix-profile/etc/profile.d/nix.sh"
       fi
       
+      # Load awesome-terminal-fonts font maps (glyph name variables)
+      if [ -d "$HOME/.fonts" ]; then
+        for fontmap in "$HOME/.fonts"/*.sh; do
+          [ -r "$fontmap" ] && source "$fontmap"
+        done
+      fi
+      
       # Load my personal configs
       if [ -e "$HOME/.diraol/rc" ]; then
         source "$HOME/.diraol/rc"

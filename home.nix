@@ -1,5 +1,13 @@
 { config, pkgs, ... }:
 
+let
+  awesome-terminal-fonts = pkgs.fetchFromGitHub {
+    owner = "gabrielelana";
+    repo = "awesome-terminal-fonts";
+    rev = "v1.1.0";
+    sha256 = "sha256-yBYk5kzgNgHkqiXE/8ptIC1z/0NblvpUmOSAEiLYzqY=";
+  };
+in
 {
   # Import modular configurations
   imports = [
@@ -65,6 +73,13 @@
     # Font management
     fontconfig
     
+    # Nerd Fonts - patched fonts with extra glyphs
+    nerd-fonts.hack
+    nerd-fonts.inconsolata
+    nerd-fonts.inconsolata-lgc
+    nerd-fonts.meslo-lg
+    nerd-fonts.ubuntu
+    
     # Additional icon fonts for better compatibility
     font-awesome            # FontAwesome icons
     material-design-icons   # Material Design icons
@@ -73,12 +88,43 @@
     noto-fonts-emoji
   ];
 
+  # Awesome terminal fonts setup
+  home.file.".fonts/fontawesome-regular.ttf".source = "${awesome-terminal-fonts}/build/fontawesome-regular.ttf";
+  home.file.".fonts/devicons-regular.ttf".source = "${awesome-terminal-fonts}/build/devicons-regular.ttf";
+  home.file.".fonts/octicons-regular.ttf".source = "${awesome-terminal-fonts}/build/octicons-regular.ttf";
+  home.file.".fonts/pomicons-regular.ttf".source = "${awesome-terminal-fonts}/build/pomicons-regular.ttf";
+  
+  # Font maps (shell scripts with glyph name variables)
+  home.file.".fonts/fontawesome-regular.sh".source = "${awesome-terminal-fonts}/build/fontawesome-regular.sh";
+  home.file.".fonts/devicons-regular.sh".source = "${awesome-terminal-fonts}/build/devicons-regular.sh";
+  home.file.".fonts/octicons-regular.sh".source = "${awesome-terminal-fonts}/build/octicons-regular.sh";
+  home.file.".fonts/pomicons-regular.sh".source = "${awesome-terminal-fonts}/build/pomicons-regular.sh";
+
+  # Fontconfig for awesome-terminal-fonts fallback
+  xdg.configFile."fontconfig/conf.d/10-symbols.conf".text = ''
+    <?xml version="1.0"?>
+    <!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+    <fontconfig>
+      <!-- Add awesome-terminal-fonts as fallback for symbols -->
+      <alias>
+        <family>monospace</family>
+        <prefer>
+          <family>MesloLGS Nerd Font</family>
+          <family>FontAwesome</family>
+          <family>Devicons</family>
+          <family>Octicons</family>
+          <family>Pomicons</family>
+        </prefer>
+      </alias>
+    </fontconfig>
+  '';
+
   # Activation scripts for self-contained dotfiles setup
   home.activation.linkDotfiles = config.lib.dag.entryAfter [ "writeBoundary" ] ''
     # Create necessary directories
     mkdir -p $HOME/.config
     
-    # Refresh font cache to ensure nerd fonts are available
+    # Refresh font cache to ensure all fonts are available
     ${pkgs.fontconfig}/bin/fc-cache -fv
     
     # Link self-contained configuration files from nix-dotfiles
