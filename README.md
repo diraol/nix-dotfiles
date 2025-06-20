@@ -1,4 +1,4 @@
-# AntonFriberg's Dotfiles
+# Diraol's Dotfiles
 
 My personal dotfiles manging packages, scripts and configuration on [Ubuntu],
 [Debian] and [Arch Linux]. Managed by [Home Manager] utilizing [Nix].
@@ -57,7 +57,7 @@ curl -L https://install.determinate.systems/nix | sh -s -- install
 Install Home-Manager and swith to this repos configuration.
 
 ```sh
-$ nix run "nixpkgs#home-manager" -- switch --flake github:antonfriberg/dotfiles
+$ nix run "nixpkgs#home-manager" -- switch --flake github:diraol/dotfiles
 ```
 
 That is it. If the system and user is matching any available setup it will
@@ -168,10 +168,10 @@ mise python@3.12.5 ✓ installed
 # Check that it is working
 ❯ python --version && which python
 Python 3.12.5
-/home/antonfr/.local/share/mise/installs/python/3.12/bin/python
+/home/diraol/.local/share/mise/installs/python/3.12/bin/python
 ❯ node --version && which node
 v20.17.0
-/home/antonfr/.local/share/mise/installs/node/20/bin/node
+/home/diraol/.local/share/mise/installs/node/20/bin/node
 ```
 
 For local development where I might want different versions of Python or NodeJS
@@ -199,8 +199,8 @@ mise python@3.10.14 ✓ installed                                              m
 # Mise installs Python version and activates our virtualenv
 ❯ python --version & which python & which pip
 Python 3.10.14
-/home/antonfr/project-dir/.venv/bin/python
-/home/antonfr/project-dir/.venv/bin/pip
+/home/diraol/project-dir/.venv/bin/python
+/home/diraol/project-dir/.venv/bin/pip
 ```
 
 This means that I can quickly switch between different project specific tool
@@ -264,7 +264,7 @@ So if we look at a generated configuration file.
 
 ```bash
 $ ls -al
-lrwxrwxrwx 1 antonfr antonfr 81 Oct 28 21:40 /home/antonfr/.config/git/config -> /nix/store/x3r12ppqhjgzdv2jx63cjflfc10qjn5b-home-manager-files/.config/git/config
+lrwxrwxrwx 1 diraol diraol 81 Oct 28 21:40 /home/diraol/.config/git/config -> /nix/store/x3r12ppqhjgzdv2jx63cjflfc10qjn5b-home-manager-files/.config/git/config
 ```
 
 We see that the contents are actually under /nix so once /nix is removed with
@@ -281,7 +281,7 @@ $ /nix/nix-installer uninstall
 # Reinstall Nix
 $ curl -L https://install.determinate.systems/nix | sh -s -- install
 # Recreate the entire setup back again
-$ nix run "nixpkgs#home-manager" -- switch --flake github:antonfriberg/dotfiles
+$ nix run "nixpkgs#home-manager" -- switch --flake github:diraol/dotfiles
 ```
 
 The above makes it pretty fool-proof if you ever manage to break Nix or

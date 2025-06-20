@@ -233,7 +233,7 @@
   xdg.configFile."swaylock/config".text = ''
     ignore-empty-password
     show-failed-attempts
-    image=/home/antonfr/Pictures/wallpaper_dark.jpg
+    image=/home/diraol/Pictures/wallpaper_dark.jpg
     show-keyboard-layout
     indicator-caps-lock
     bs-hl-color=b48eadff

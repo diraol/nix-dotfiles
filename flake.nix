@@ -45,7 +45,7 @@
       config = pkgsConfig;
     };
   in {
-    homeConfigurations."antonfr" = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations."diraol" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       extraSpecialArgs = {
         inherit pkgs-stable;

@@ -1,6 +1,6 @@
 {...}: {
   home = let
-    user = "antonfr";
+    user = "diraol";
   in {
     username = user;
     homeDirectory = "/home/${user}";
@@ -8,7 +8,7 @@
     sessionVariables = {
       # Set default applications
       SHELL = "$HOME/.nix-profile/bin/fish";
-      TERMINAL = "alacritty";
+      TERMINAL = "kitty";
       VISUAL = "vim";
       EDITOR = "vim";
       BROWSER = "firefox";
