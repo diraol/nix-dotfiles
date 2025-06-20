@@ -1,0 +1,10 @@
+export NU_HOME="$HOME/dev/nu"
+export NUCLI_HOME=$NU_HOME/nucli
+export NU_COUNTRY="br"
+
+export GOPATH="$HOME/go"
+export PATH="$NUCLI_HOME:$GOPATH/bin:$PATH"
+export NVM_DIR="$HOME/.nvm"
+
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8

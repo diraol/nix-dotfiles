@@ -10,6 +10,12 @@
       styles.cursor = "fg=#ffffff";
     };
     profileExtra = ''
+      path=(
+        $HOME/.local/bin
+        $HOME/tools/bin
+        $HOME/.local/share/coursier/bin
+        $path
+      )
       if [[ -z "$XDG_DATA_DIRS" ]]; then
         XDG_DATA_DIRS="/usr/local/share/:/usr/share/"
       fi

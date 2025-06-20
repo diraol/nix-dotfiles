@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# Personal vars exports
+export DEFAULT_USER="diraol"
+export GITHUB_USER="diraol"
+export EDITOR="vim" # Bitch, please.
+
+export GOPATH="${HOME}/.go"
+export NVM_DIR="${HOME}/.nvm"
+
+# ref: https://github.com/flameshot-org/flameshot/blob/master/docs/Sway%20and%20wlroots%20support.md#basic-steps
+export SDL_VIDEODRIVER=wayland
+export _JAVA_AWT_WM_NONREPARENTING=1
+export QT_QPA_PLATFORM=wayland
+export XDG_CURRENT_DESKTOP=sway
+export XDG_SESSION_DESKTOP=sway
+
+# This is for libappindicator for tray icons, it is just tricking apps.
+# https://www.reddit.com/r/swaywm/comments/gekpeq/waybar_for_a_functional_tray_install/
+# export XDG_CURRENT_DESKTOP="Unity"
+if [[ "${PYTHON_CONFIGURE_OPTS:-FALSE}"  == "FALSE" ]]; then
+	export PYTHON_CONFIGURE_OPTS="--enable-shared"
+fi
+
+# Setting XDG_DATA_DIRS for rofi/dmenu .desktop apps
+if [[ "${XDG_DATA_DIRS:-FALSE}" == "FALSE" ]]; then
+        export XDG_DATA_DIRS="/usr/share"
+fi
+while IFS= read -r DIR; do
+        if [[ -d "${DIR}" && ":${XDG_DATA_DIRS}:" != *":${DIR}:"* ]]; then
+                export XDG_DATA_DIRS="${DIR}:${XDG_DATA_DIRS}"
+        fi
+done < <( cat <<-EOF
+/usr/share
+/usr/local/share
+/var/lib/snapd/desktop
+${HOME}/.local/share
+${HOME}/.local/share/applications
+${HOME}/tools/.desktop
+EOF
+)
+
+# QT Variables for wayland/sway
+# export QT_SCALE_FACTOR=1
+# export QT_ACCESSIBILITY=1
+# export QT_AUTO_SCREEN_SCALE_FACTOR=0.5
+# Not all QT apps works with wayland, such as nextcloud/zoom,
+# So we can't use this as default yet.
+# export QT_QPA_PLATFORM="wayland"
+
+# SWAY Variables
+XDG_CURRENT_DESKTOP="sway"
+LD_LIBRARY_PATH=/usr/local/lib/x86_64-linux-gnu/

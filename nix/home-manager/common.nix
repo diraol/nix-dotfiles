@@ -21,6 +21,7 @@ in {
   home = {
     stateVersion = "25.05";
     packages = with pkgs; [
+      nerd-fonts.inconsolata
       nodePackages.eask
       # master.graalvm-ce
       gh
@@ -51,8 +52,13 @@ in {
       ln -sf ${dotfilesDir}/.nubank_aliases ~/.nubank_aliases
       ln -sf ${dotfilesDir}/.nubank_extra ~/.extra
       ln -sf ${dotfilesDir}/.nugitconfig ~/.nugitconfig
+      ln -sf ${dotfilesDir}/.nurc ~/.nurc
+      ln -sf ${dotfilesDir}/.p10k.zsh ~/.p10k.zsh
 
+      ln -sf ${dotfilesDir}/.gitconfig ~/.gitconfig
       ln -sf ${dotfilesDir}/.gitignore ~/.gitignore
+
+      ln -Tsf ${dotfilesDir}/.diraol ~/.diraol
 
       ln -Tsf ${dotfilesDir}/.config/hypr ~/.config/hypr
       ln -Tsf ${dotfilesDir}/.config/waybar ~/.config/waybar
@@ -60,7 +66,6 @@ in {
       ln -Tsf ${dotfilesDir}/.config/wofi ~/.config/wofi
       ln -Tsf ${dotfilesDir}/.config/dunst ~/.config/dunst
       ln -Tsf ${dotfilesDir}/.config/networkmanager-dmenu ~/.config/networkmanager-dmenu
-
       ln -Tsf ${dotfilesDir}/.config/kitty ~/.config/kitty
 
       mkdir -p ~/.config/Code/User
@@ -72,4 +77,5 @@ in {
       ln -sf ${dotfilesDir}/.config/clojure-lsp/config.edn ~/.config/clojure-lsp/config.edn
     '';
   };
+  fonts.fontconfig.enable = true;
 }

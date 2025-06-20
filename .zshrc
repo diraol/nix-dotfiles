@@ -37,32 +37,22 @@ ENHANCD_DOT_ARG="..."
 bindkey -M viins '^r' history-incremental-search-backward
 bindkey -M vicmd '^r' history-incremental-search-backward
 
-source "$HOME/.homesick/repos/homeshick/homeshick.sh"
-
 [[ -f ~/.fzf.zsh ]] && source ~/.fzf.zsh
 
 # BEGIN NU_HOME ENV
 source $HOME/.nurc
-export NU_HOME="$HOME/dev/nu"
-export NUCLI_HOME=$NU_HOME/nucli
-export PATH="$NUCLI_HOME:/opt/idea/current/bin:$PATH"
-# END NU_HOME ENV
 
-export GOPATH="$HOME/go"
-export PATH="$GOPATH/bin:$PATH"
-export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 # SETTING UP FOR GNUPG TTY
 export GPG_TTY=$(tty)
 
-# source /home/diegorabatone/.pyenv/.pyenvrc
+# source /home/diraol/.pyenv/.pyenvrc
 
 fpath=(~/.zsh/completion $fpath)
 source "${NU_HOME}/nucli/nu.bashcompletion"
 eval "$(nodenv init -)"
-fpath=(${ASDF_DIR}/completions $fpath)
 
 # initialise completions with ZSH's compinit
 autoload -Uz compinit && compinit

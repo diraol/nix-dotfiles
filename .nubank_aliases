@@ -114,3 +114,19 @@ alias vpn="$VPN_START"
 alias work-work-br="nu aws shared-role-credentials refresh --account-alias=br"
 alias work-work-mx="nu aws shared-role-credentials refresh --account-alias=mx"
 alias roxy="docker-compose -f ${NU_HOME}/nu-roxy/docker-compose.yml up"
+
+#############################################################
+## DATA INFRA OPS
+#############################################################
+watch_orcas_queue() {
+    ARG2=""
+    # if [ {$2:-FALSE} != "FALSE" ]; then
+    #     ARG2=" | grep -v default | grep -v ' heavy'"
+    # fi
+    watch -n60 -c "nu orcas queue ${1} ${ARG2}"
+}
+
+watch_orcas_runtimes() {
+    watch -n60 -c "nu orcas runtimes list ${1} -O json | jq '.[] | select(.status==\"running\" or .status==\"starting\" or .status==\"scheduled\" or .status==\"stopping\" or .status==\"unresponsive\") | [ .status, (.tags | join(\",\")) ] | join(\" \")' -r | column -t | sort | uniq -c"
+}
+#############################################################

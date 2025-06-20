@@ -1,0 +1,105 @@
+#!/bin/bash
+
+# If we have already lodade my own configs, we do not need to do it again
+# if [[ "${DIRAOL_RC_LOADED:-FALSE}" == "TRUE" ]]; then
+#     exit 0
+# fi
+
+# Loading most personalized env vars
+if [[ -f "${HOME}/.diraol/variables" ]]; then
+    # shellcheck source=/dev/null
+    . "${HOME}/.diraol/variables"
+fi
+
+# Loading protected data
+if [[ -f "${HOME}/.diraol/protected_data" ]]; then
+    # shellcheck source=/dev/null
+    . "${HOME}/.diraol/protected_data"
+fi
+
+# Load homeshick if installed
+if [[ -f "${HOME}/.homesick/repos/homeshick/homeshick.sh" ]]; then
+    # shellcheck source=/dev/null
+    . "${HOME}/.homesick/repos/homeshick/homeshick.sh"
+fi
+
+# Setting path
+while IFS= read -r DIR; do
+	export PATH="${DIR}:${PATH}"
+done < <( cat <<-EOF
+/bin
+/usr/bin
+/usr/sbin
+/usr/local/go/bin
+/usr/local/bin
+/usr/local/sbin
+${HOME}/.rbenv/bin
+/usr/local/go/bin
+/snap/bin
+${GOPATH}/bin
+${HOME}/.pyenv/shims
+${HOME}/.local/bin
+${HOME}/tools/bin
+${HOME}/.nodenv/bin
+EOF
+)
+
+# From: https://unix.stackexchange.com/questions/40749/remove-duplicate-path-entries-with-awk-command
+# Remove double items from path
+if [ -n "$PATH" ]; then
+    old_PATH=$PATH:
+    # shellcheck disable=SC2123
+    PATH=
+    while [ -n "$old_PATH" ]; do
+        x=${old_PATH%%:*}       # the first remaining entry
+        case $PATH: in
+            *:"$x":*) ;;          # already there
+            *) PATH=$PATH:$x;;    # not there yet
+        esac
+        old_PATH=${old_PATH#*:}
+    done
+    PATH=${PATH#:}
+    unset old_PATH x
+fi
+
+# Config for exporting SSH_AUTH_SOCK
+# Ref: https://eklitzke.org/using-ssh-agent-and-ed25519-keys-on-gnome
+# Check if it is really needed.
+# shellcheck disable=SC2046
+eval $(systemctl --user show-environment | grep SSH_AUTH_SOCK)
+export SSH_AUTH_SOCK
+
+# Sourcing other config files
+while IFS= read -r CONF; do
+    # shellcheck source=/dev/null
+    . "${CONF}"
+done < <(find "${HOME}/.diraol" -maxdepth 1 -not -type d -name '_*')
+
+if [[ -d "${HOME}/.rbenv/bin" ]]; then
+    eval "$(rbenv init -)"
+fi
+
+if [[ -s "${NVM_DIR}/nvm.sh" ]]; then
+    # shellcheck source=/dev/null
+    . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+    if [[ -s "${NVM_DIR}/bash_completion" && "${SHELL}" == "/bin/bash" ]]; then
+        # shellcheck source=/dev/null
+        . "${NVM_DIR}/bash_completion"  # This loads nvm bash_completion
+    fi
+fi
+
+# Setting env var to state we have already lodade this config file
+DIRAOL_RC_LOADED=TRUE
+export DIRAOL_RC_LOADED
+
+if [[ -f "${HOME}/.nurc" ]]; then
+    # shellcheck source=/dev/null
+    . "${HOME}/.nurc"
+fi
+if [[ -f "${HOME}/.nubank/rc" ]]; then
+    # shellcheck source=/dev/null
+    . "${HOME}/.nubank/rc"
+fi
+# shellcheck source=/dev/null
+. "${HOME}/.diraol/_initial_load"

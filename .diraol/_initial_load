@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# TODO: Check if we need to run this import or not
+# Probably yes: https://github.com/flameshot-org/flameshot/blob/master/docs/Sway%20and%20wlroots%20support.md#basic-steps
+systemctl --user import-environment PATH GOROOT GOPATH SSH_AUTH_SOCK LANGUAGE LC_ALL LANG XDG_DATA_DIRS XKB_DEFAULT_LAYOUT SHELL GOPRIVATE DIRAOL_RC_LOADED DISPLAY WAYLAND_DISPLAY SWAYSOCK

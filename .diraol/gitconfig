@@ -1,0 +1,11 @@
+[user]
+  name = Diego Rabatone Oliveira
+  username = diraol
+  email = diraol@diraol.eng.br
+  # signingkey = 8E521D0F
+[url "git@gitlab.com:"]
+  username = diraol
+  user = diraol
+  email = diraol@diraol.eng.br
+[commit]
+  gpgsign = false

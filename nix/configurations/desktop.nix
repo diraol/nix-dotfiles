@@ -18,6 +18,7 @@
       libnotify
       materia-theme
       nautilus
+      nerd-fonts.inconsolata
       ntfsprogs
       pavucontrol
       peek

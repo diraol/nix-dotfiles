@@ -42,7 +42,7 @@ fi
 sudo chsh -s "${NIX_ZSH}"
 
 # Natural scrolling
-NAT_SCRL="xinput set-prop 13 324 1"
-if ! grep -q "${NAT_SCRL}" ~/.profile; then
-	echo "${NAT_SCRL}" >> ~/.profile
-fi
+# NAT_SCRL="xinput set-prop 13 324 1"
+# if ! grep -q "${NAT_SCRL}" ~/.profile; then
+# 	echo "${NAT_SCRL}" >> ~/.profile
+# fi
