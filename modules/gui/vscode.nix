@@ -13,7 +13,7 @@
       extensions = with pkgs-stable.vscode-extensions; [
         arcticicestudio.nord-visual-studio-code
         bbenoist.nix
-        bmalehorn.vscode-fish
+        # bmalehorn.vscode-fish
         charliermarsh.ruff
         pkief.material-icon-theme
         esbenp.prettier-vscode
@@ -30,7 +30,7 @@
         "[python]" = {"editor.defaultFormatter" = "charliermarsh.ruff";};
         "[yaml]" = {"editor.defaultFormatter" = "redhat.vscode-yaml";};
         "editor.copyWithSyntaxHighlighting" = false;
-        "editor.fontFamily" = "'Cousine Nerd Font', 'Hack Nerd Font', 'monospace', monospace, 'Droid Sans Fallback'";
+        "editor.fontFamily" = "'Inconsolata Nerd Font', 'Cousine Nerd Font', 'Hack Nerd Font', 'monospace', monospace, 'Droid Sans Fallback'";
         "editor.minimap.enabled" = false;
         "editor.renderWhitespace" = "boundary";
         "editor.rulers" = [80 120];
@@ -38,7 +38,7 @@
         "files.trimTrailingWhitespace" = true;
         "python.analysis.typeCheckingMode" = "basic";
         "python.languageServer" = "Pylance";
-        "terminal.integrated.fontFamily" = "Cousine Nerd Font Mono";
+        "terminal.integrated.fontFamily" = "Inconsolata Nerd Font Mono";
         "window.titleBarStyle" = "custom";
         "window.zoomLevel" = 1;
         "workbench.colorTheme" = "Nord";
