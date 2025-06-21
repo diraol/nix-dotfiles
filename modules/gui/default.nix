@@ -5,15 +5,13 @@
   ...
 }: {
   imports = [
-    ./alacritty.nix
     ./chrome.nix
     ./firefox.nix
     ./vscode.nix
     # Fix for GPU stuff on non-nixos systems
     ./nixgl.nix
     # ./hyprland.nix
-    ./mpv.nix
-    ./ghostty.nix
+    ./sway.nix
   ];
 
   # Add packages
@@ -21,10 +19,14 @@
     (with pkgs; [
       (config.lib.nixGL.wrap spotify)
       (config.lib.nixGL.wrap zed-editor)
+      dunst
       grim
+      kanshi
       slurp
       swaybg
+      swayidle
       wdisplays
+      wl-clipboard
     ])
   ];
 }
