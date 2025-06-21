@@ -4,21 +4,21 @@
   config,
   ...
 }: {
-  xdg.configFile."kitty/theme.conf".source = ../../config/.config/kitty/themes/GruvBoxMaterialDarkSoft.conf;
+  xdg.configFile."kitty/theme.conf".source = ../../config/.config/kitty/themes/GruvboxMaterialDarkMedium.conf;
   programs.kitty = {
-    enable = true
+    enable = true;
     settings = {
       copy_on_select = "clipboard";
       dynamic_background_opacity = true;
       enable_audio_bell = false;
       scrollback_lines = 10000;
-      shell = "zsh";
+      # shell = "zsh";
       show_hyperlink_targets = "yes";
       underline_hyperlinks = "never";
       url_style = "none";
-      window_padding_width = 10;
+      window_padding_width = 1;
     };
-    themeFile = "GruvboxMaterialDarkSoft";
+    themeFile = "GruvboxMaterialDarkMedium";
     # Samples at: https://github.com/dexpota/kitty-themes
     # Themes from: https://github.com/kovidgoyal/kitty-themes
     # afterglow
@@ -39,6 +39,8 @@
     # gruvbox dark
     # GruvboxMaterialDarkSoft
 
-    font = "Inconsolata Nerd Font";
+    font = {
+      name = "Inconsolata Nerd Font";
+    };
   };
 }
