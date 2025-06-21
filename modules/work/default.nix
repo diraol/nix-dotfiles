@@ -3,26 +3,26 @@
   pkgs,
   ...
 }: let
-  fish_start_logic = ''
-    if [ -x "$HOME/.nix-profile/bin/fish" ]; then
+  zsh_start_logic = ''
+    if [ -x "$HOME/.nix-profile/bin/zsh" ]; then
         export PATH="$HOME/.nix-profile/bin:$PATH" # Add to PATH
-        exec fish
     fi
   '';
 in {
   # Add packages
   home.packages = lib.mkMerge [
     (with pkgs; [
-      clickhouse
-      aws-signing-helper
+      # TODO: Nubank stuff
+      # aws-signing-helper
+      awscli
     ])
   ];
 
   # Bash configuration
   # Workaround since chsh -s is not persisted on company laptop
   home.file = {
-    ".bashrc".text = fish_start_logic;
-    ".zshrc".text = fish_start_logic;
+    ".bashrc".text = zsh_start_logic;
+    ".zshrc".text = zsh_start_logic;
   };
 
   # Take system packages for git and ssh since I could not get Nix to support GSSAPIKeyExchange that is enabled at work.
