@@ -726,4 +726,52 @@
 
   # Create sandbox directory for screenshots (matching reference config)
   home.file."sandbox/screenshots/.keep".text = "";
+
+  # Create sway desktop entry for GDM
+  home.file.".local/share/wayland-sessions/sway.desktop".text = ''
+    [Desktop Entry]
+    Name=Sway
+    Comment=An i3-compatible Wayland compositor
+    Exec=${config.wayland.windowManager.sway.package}/bin/sway
+    Type=Application
+    Keywords=tiling;wm;windowmanager;window;manager;
+    DesktopNames=sway
+  '';
+
+  # Also create in xsessions for compatibility
+  home.file.".local/share/xsessions/sway.desktop".text = ''
+    [Desktop Entry]
+    Name=Sway
+    Comment=An i3-compatible Wayland compositor
+    Exec=${config.wayland.windowManager.sway.package}/bin/sway
+    Type=Application
+    Keywords=tiling;wm;windowmanager;window;manager;
+    DesktopNames=sway
+  '';
+
+  # Create a sway startup script with proper environment
+  home.file.".local/bin/start-sway".text = ''
+    #!/bin/bash
+    
+    # Set up environment for sway
+    export GDK_BACKEND=wayland,x11
+    export QT_QPA_PLATFORM=wayland;xcb
+    export SDL_VIDEODRIVER=wayland
+    export CLUTTER_BACKEND=wayland
+    export XDG_CURRENT_DESKTOP=sway
+    export XDG_SESSION_TYPE=wayland
+    export XDG_SESSION_DESKTOP=sway
+    export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+    export _JAVA_AWT_WM_NONREPARENTING=1
+    export MOZ_ENABLE_WAYLAND=1
+    export MOZ_ACCELERATED=1
+    export MOZ_WEBRENDER=1
+    export ELECTRON_OZONE_PLATFORM_HINT=auto
+    
+    # Start sway
+    bash ${config.wayland.windowManager.sway.package}/bin/sway "$@"
+  '';
+  
+  # Make the script executable
+  home.file.".local/bin/start-sway".executable = true;
 } 
