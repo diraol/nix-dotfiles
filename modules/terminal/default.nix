@@ -15,41 +15,72 @@
   # Add packages
   home.packages = lib.mkMerge [
     (with pkgs; [
-      alejandra
-      bandwhich
-      choose
-      comma
-      delta
-      docker-compose
-      dogdns
+      # Nix related
+      alejandra  # nix code formatter
+
+      # Dev tools
+      curl
+      ipcalc
+      jq
+      uv
+      wget
+      yq-go
+
+      # Text processing
       fd
       fzf
-      git-crypt
-      glances
-      go-migrate
-      helmfile
-      httpie
-      ipcalc
-      jira-cli-go
-      jq
-      mmv
-      ncdu
-      nerd-fonts.caskaydia-mono
-      nerd-fonts.cousine
-      nerd-fonts.droid-sans-mono
-      nerd-fonts.fira-code
-      nerd-fonts.fira-mono
-      nerd-fonts.hack
-      nerd-fonts.jetbrains-mono
-      nerd-fonts.sauce-code-pro
-      ouch
-      radeontop
-      rclone
+      htop
       ripgrep
-      tealdeer
-      uv
-      yt-dlp
-      yq-go
+      tree
+
+      # Terminal utilities
+      tmux
+
+      # Build Tools
+      gnumake
+      gcc
+
+      # System Utilities
+      unzip
+      zip
+      p7zip
+      bzip2
+      imagemagick
+
+      # Network tools
+      openssh
+
+      # File management
+      rsync
+
+      # Audio and Notifications
+      # espeak
+      # libnotify  # NOTE: Check if we need it.
+
+      # NOTE: Fonts were moved "up" to home.nix
+      
+      # Others
+      rclone # Rclone is a command-line program to manage files on cloud storage
+      tealdeer # tldr tooling - https://github.com/tealdeer-rs/tealdeer
+      yt-dlp # fork of youtube-dl
+
+      # Disabled, don't need for now
+      # docker-compose
+      # git-crypt
+
+      # TODO: Move to nubank specific
+      jira-cli-go
+
+      # TODO: To be discovered
+      # choose
+      # delta
+      # dogdns
+      # glances
+      # go-migrate
+      # helmfile
+      # httpie
+      # mmv
+      # ncdu
     ])
   ];
 
