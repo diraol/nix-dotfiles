@@ -2,10 +2,12 @@
 
 let
   prezto-contrib = pkgs.fetchFromGitHub {
-    owner = "belak";
+    owner = "diraol";
     repo = "prezto-contrib";
-    rev = "a05508a716cad6e45e90cb8b0f73c811cbd4438a";
-    sha256 = "sha256-nGbrc4Q66jyOHrEQOt0gyRbllqguoKAAIDoltNIyvJc=";
+    rev = "8254fc15cc590fbb49d43be743826c37334e4bb5";
+    # nix flake prefetch github:diraol/prezto-contrib/master
+    # sha256 = "sha256-o3RQ2qN0dgwRE+SePaUa53v0t36HFw8Zeqts5ZRhJFc=";
+    sha256 = "sha256-lCy5zWmtZA60YkCT6iPb/t0yh53TSP/8XWCQ9cTY5/4=";
     fetchSubmodules = true;
   };
 in

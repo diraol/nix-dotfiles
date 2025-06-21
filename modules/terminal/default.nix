@@ -4,11 +4,12 @@
   ...
 }: {
   imports = [
-    ./fish.nix
     ./git.nix
+    ./kitty.nix
     ./kubernetes.nix
-    ./mise.nix
     ./ssh.nix
+    ./tmux.nix
+    ./zsh.nix
   ];
 
   # Add packages
