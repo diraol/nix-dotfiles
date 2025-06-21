@@ -27,18 +27,17 @@
 
   wayland.windowManager.sway = {
     enable = true;
-    package = config.lib.nixGL.wrap pkgs.sway;
+    package = config.lib.nixGL.wrapOffload pkgs.sway;
     
     # Sway configuration
     config = {
       modifier = "Mod1"; # Alt key
       
       # Set default terminal
-      terminal = "kitty";
+      terminal = "gnome-terminal";
       
       # Set menu launcher
-      menu = "fuzzel";
-      # menu = "wofi --show=drun -i -I -m";
+      menu = "wofi --show=drun -i -I -m";
       
       # Set default font
       fonts = {
@@ -129,7 +128,7 @@
         # Application shortcuts
         "${modifier}+Return" = "exec ${terminal}";
         "${modifier}+d" = "exec ${menu}";
-        "${modifier}+n" = "exec nautilus";
+        "${modifier}+b" = "exec nautilus";
         "${modifier}+c" = "exec gsimplecal";
         "Ctrl+Alt+l" = "exec swaylock -f -c 000000";
         
@@ -232,6 +231,10 @@
           always = false;
         }
         {
+          command = "mako";
+          always = false;
+        }
+        {
           command = "dbus-update-activation-environment --systemd --all";
           always = false;
         }
@@ -296,9 +299,11 @@
 
     # Extra configuration
     extraConfig = ''
-      # Set environment variables for Wayland
+      # Set environment variables for Wayland and Intel GPU
       exec_always export GDK_BACKEND="wayland,x11"
       exec_always export QT_QPA_PLATFORM="wayland;xcb"
+      exec_always export LIBVA_DRIVER_NAME=iHD
+      exec_always export VDPAU_DRIVER=va_gl
       exec_always export SDL_VIDEODRIVER=wayland
       exec_always export CLUTTER_BACKEND=wayland
       exec_always export XDG_CURRENT_DESKTOP=sway
@@ -398,7 +403,7 @@
   # Services
   services = {
     swayidle = {
-      enable = true;
+      enable = false;
       timeouts = [
         {
           timeout = 300;
@@ -728,50 +733,50 @@
   home.file."sandbox/screenshots/.keep".text = "";
 
   # Create sway desktop entry for GDM
-  home.file.".local/share/wayland-sessions/sway.desktop".text = ''
-    [Desktop Entry]
-    Name=Sway
-    Comment=An i3-compatible Wayland compositor
-    Exec=${config.wayland.windowManager.sway.package}/bin/sway
-    Type=Application
-    Keywords=tiling;wm;windowmanager;window;manager;
-    DesktopNames=sway
-  '';
+  # home.file.".local/share/wayland-sessions/sway.desktop".text = ''
+  #   [Desktop Entry]
+  #   Name=Sway
+  #   Comment=An i3-compatible Wayland compositor
+  #   Exec=/home/diraol/.local/bin/start-sway
+  #   Type=Application
+  #   Keywords=tiling;wm;windowmanager;window;manager;
+  #   DesktopNames=sway
+  # '';
 
-  # Also create in xsessions for compatibility
-  home.file.".local/share/xsessions/sway.desktop".text = ''
-    [Desktop Entry]
-    Name=Sway
-    Comment=An i3-compatible Wayland compositor
-    Exec=${config.wayland.windowManager.sway.package}/bin/sway
-    Type=Application
-    Keywords=tiling;wm;windowmanager;window;manager;
-    DesktopNames=sway
-  '';
+  # # Also create in xsessions for compatibility
+  # home.file.".local/share/xsessions/sway.desktop".text = ''
+  #   [Desktop Entry]
+  #   Name=Sway
+  #   Comment=An i3-compatible Wayland compositor
+  #   Exec=/home/diraol/.local/bin/start-sway
+  #   Type=Application
+  #   Keywords=tiling;wm;windowmanager;window;manager;
+  #   DesktopNames=sway
+  # '';
 
-  # Create a sway startup script with proper environment
-  home.file.".local/bin/start-sway".text = ''
-    #!/bin/bash
-    
-    # Set up environment for sway
-    export GDK_BACKEND=wayland,x11
-    export QT_QPA_PLATFORM=wayland;xcb
-    export SDL_VIDEODRIVER=wayland
-    export CLUTTER_BACKEND=wayland
-    export XDG_CURRENT_DESKTOP=sway
-    export XDG_SESSION_TYPE=wayland
-    export XDG_SESSION_DESKTOP=sway
-    export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-    export _JAVA_AWT_WM_NONREPARENTING=1
-    export MOZ_ENABLE_WAYLAND=1
-    export MOZ_ACCELERATED=1
-    export MOZ_WEBRENDER=1
-    export ELECTRON_OZONE_PLATFORM_HINT=auto
-    
-    # Start sway
-    bash ${config.wayland.windowManager.sway.package}/bin/sway "$@"
-  '';
+  # # Create a sway startup script with proper environment
+  # home.file.".local/bin/start-sway".text = ''
+  #   #!/bin/bash
+  #   
+  #   # Set up environment for sway
+  #   export GDK_BACKEND=wayland,x11
+  #   export QT_QPA_PLATFORM=wayland;xcb
+  #   export SDL_VIDEODRIVER=wayland
+  #   export CLUTTER_BACKEND=wayland
+  #   export XDG_CURRENT_DESKTOP=sway
+  #   export XDG_SESSION_TYPE=wayland
+  #   export XDG_SESSION_DESKTOP=sway
+  #   export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
+  #   export _JAVA_AWT_WM_NONREPARENTING=1
+  #   export MOZ_ENABLE_WAYLAND=1
+  #   export MOZ_ACCELERATED=1
+  #   export MOZ_WEBRENDER=1
+  #   export ELECTRON_OZONE_PLATFORM_HINT=auto
+  #   
+  #   # Start sway
+  #   exec ${config.wayland.windowManager.sway.package}/bin/sway "$@" 2>&1 | tee /var/log/sway/sway.log
+  # '';
   
-  # Make the script executable
-  home.file.".local/bin/start-sway".executable = true;
+  # # Make the script executable
+  # home.file.".local/bin/start-sway".executable = true;
 } 
