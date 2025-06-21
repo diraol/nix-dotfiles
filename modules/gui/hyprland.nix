@@ -110,10 +110,10 @@
       };
 
       input = {
-        kb_layout = "us,se";
-        kb_variant = ",";
+        kb_layout = "us";
+        kb_variant = "intl";
         kb_model = "";
-        kb_options = "grp:win_space_toggle";
+        kb_options = "ctrl:nocaps,grp:win_space_toggle";
         kb_rules = "";
         follow_mouse = 1;
         touchpad = {
@@ -136,8 +136,9 @@
 
       # Tip: You can install wev to tell you name of key being pressed
       bind = let
-        modifier = "Super";
-        terminal = "alacritty";
+        modifier = "Alt";
+        terminal = "kitty";
+        # menu = "wofi --show=drun -i -I -m";
         menu = "fuzzel";
         file_explorer = "nautilus";
         lock_screen = "swaylock";
@@ -199,14 +200,15 @@
         "${modifier} Shift, 0, movetoworkspace, 10"
 
         # Navigate between workspaces with modifier + Alt + arrow keys
-        "${modifier} Alt, left, workspace, e-1" # Go to workspace on the left
-        "${modifier} Alt, right, workspace, e+1" # Go to workspace on the right
+        "${modifier} Ctrl, left, workspace, e-1" # Go to workspace on the left
+        "${modifier} Ctrl, right, workspace, e+1" # Go to workspace on the right
 
         # Rezie active window
-        "${modifier}+Ctrl, left, resizeactive, -10 0"
-        "${modifier}+Ctrl, right, resizeactive, 10 0"
-        "${modifier}+Ctrl, up, resizeactive, 0 -10"
-        "${modifier}+Ctrl, down, resizeactive, 0 10"
+        "${modifier}+Caps_Lock, left, resizeactive, -10 0"
+        "${modifier}+Caps_Lock, right, resizeactive, 10 0"
+        "${modifier}+Caps_Lock, up, resizeactive, 0 -10"
+        "${modifier}+Caps_Lock, down, resizeactive, 0 10"
+
         # Screenshot bindings
         ", Print, exec, grim ${screenshot_dir}/$(date +'%Y-%m-%d_%H-%M-%S').png"
         "Shift, Print, exec, grim -g \"$(slurp)\" ${screenshot_dir}/$(date +'%Y-%m-%d_%H-%M-%S').png"
@@ -557,11 +559,15 @@
     };
   };
 
+  # programs.wofi = {
+  # 
+  # }
+
   programs.fuzzel = {
     enable = true;
     settings = {
       main = {
-        terminal = "${pkgs.alacritty}/bin/alacritty";
+        terminal = "${pkgs.kitty}/bin/kitty";
         layer = "overlay";
         width = 30;
         font = "Hack Nerd Font:weight=bold:size=10";
